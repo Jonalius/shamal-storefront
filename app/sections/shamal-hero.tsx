@@ -216,7 +216,7 @@ export const schema = createSchema({
           type: "text",
           name: "dividerSubtitle",
           label: "Divider subtitle",
-          defaultValue: "— Helsinki —",
+          defaultValue: "— Finland —",
         },
       ],
     },
@@ -233,8 +233,7 @@ export const schema = createSchema({
           type: "textarea",
           name: "subtext",
           label: "Subtext",
-          defaultValue:
-            "Artisan fragrances handcrafted in Helsinki, blending ancient oud with the untouched Nordic wilderness.",
+          defaultValue: "Artisan Perfume Brand based in Finland",
         },
       ],
     },

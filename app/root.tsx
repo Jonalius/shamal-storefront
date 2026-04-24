@@ -24,10 +24,6 @@ import { ScrollingAnnouncement } from "./components/layout/scrolling-announcemen
 import { CustomAnalytics } from "./components/root/custom-analytics";
 import { GenericError } from "./components/root/generic-error";
 import { GlobalLoading } from "./components/root/global-loading";
-import {
-  NewsletterPopup,
-  useShouldRenderNewsletterPopup,
-} from "./components/root/newsletter-popup";
 import { NotFound } from "./components/root/not-found";
 import styles from "./styles/app.css?url";
 import { DEFAULT_LOCALE } from "./utils/const";
@@ -107,7 +103,7 @@ export const Layout = withWeaverse(function Layout({
   const data = useRouteLoaderData<RootLoader>("root");
   const locale = data?.selectedLocale ?? DEFAULT_LOCALE;
   const { topbarHeight, topbarText } = useThemeSettings();
-  const shouldShowNewsletterPopup = useShouldRenderNewsletterPopup();
+  const isHomepage = location.pathname.replace(locale.pathPrefix, "") === "/";
 
   // Bypass Weaverse theme layout for Hydrogen dev tools
   // See: https://github.com/Weaverse/pilot/issues/321
@@ -158,14 +154,13 @@ export const Layout = withWeaverse(function Layout({
                     Skip to content
                   </a>
                 </div>
-                <ScrollingAnnouncement />
-                <Header />
+                {!isHomepage && <ScrollingAnnouncement />}
+                {!isHomepage && <Header />}
                 <main id="mainContent" className="grow">
                   {children}
                 </main>
                 <Footer />
               </div>
-              {shouldShowNewsletterPopup && <NewsletterPopup />}
             </TooltipProvider>
             <CustomAnalytics />
           </Analytics.Provider>
