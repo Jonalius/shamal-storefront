@@ -76,6 +76,7 @@
   --animate-underline-toggle: underline-toggle 400ms linear;
   --animate-fade-in: fade-in 100ms ease-in forwards;
   --animate-fade-in-up: fade-in-up 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-bottle-float: bottle-float 3s ease-in-out infinite alternate;
   --animate-fade-out: fade-out 100ms ease-in forwards;
   --animate-scale-in: scale-in 200ms ease forwards;
   --animate-scale-out: scale-out 200ms ease forwards;
@@ -227,6 +228,14 @@
     }
     100% {
       transform: translate3d(-100%, 0, 0);
+    }
+  }
+  @keyframes bottle-float {
+    0% {
+      transform: translateY(-12px);
+    }
+    100% {
+      transform: translateY(12px);
     }
   }
   @keyframes underline-toggle {
