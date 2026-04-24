@@ -64,6 +64,7 @@ import * as PromotionGridButtons from "~/sections/promotion-grid/buttons";
 import * as PromotionGridItem from "~/sections/promotion-grid/item";
 import * as RelatedArticles from "~/sections/related-articles";
 import * as RelatedProducts from "~/sections/related-products";
+import * as ShamalCategoryGrid from "~/sections/shamal-category-grid";
 import * as ShamalDiscovery from "~/sections/shamal-discovery";
 import * as ShamalHero from "~/sections/shamal-hero";
 import * as ShamalShopGrid from "~/sections/shamal-shop-grid";
@@ -102,6 +103,7 @@ export const components: HydrogenComponent[] = [
   ShamalVoyage,
   ShamalDiscovery,
   ShamalShopGrid,
+  ShamalCategoryGrid,
   ImageWithText,
   ImageWithTextContent,
   ImageWithTextImage,
