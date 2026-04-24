@@ -64,6 +64,7 @@ import * as PromotionGridButtons from "~/sections/promotion-grid/buttons";
 import * as PromotionGridItem from "~/sections/promotion-grid/item";
 import * as RelatedArticles from "~/sections/related-articles";
 import * as RelatedProducts from "~/sections/related-products";
+import * as ShamalHero from "~/sections/shamal-hero";
 import * as SingleProduct from "~/sections/single-product";
 import * as SlideShow from "~/sections/slideshow";
 import * as SlideShowSlide from "~/sections/slideshow/slide";
@@ -92,6 +93,7 @@ export const components: HydrogenComponent[] = [
   VideoEmbed,
   VideoEmbedItem,
   HeroImage,
+  ShamalHero,
   ImageWithText,
   ImageWithTextContent,
   ImageWithTextImage,
