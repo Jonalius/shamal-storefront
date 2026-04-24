@@ -9,6 +9,7 @@ import { cn } from "~/utils/cn";
 
 interface ShamalDiscoveryProps extends HydrogenComponentProps {
   ref: React.Ref<HTMLElement>;
+  backgroundImage: WeaverseImage | string;
   productImage: WeaverseImage | string;
   label: string;
   headline: string;
@@ -27,6 +28,7 @@ interface ShamalDiscoveryProps extends HydrogenComponentProps {
 export default function ShamalDiscovery(props: ShamalDiscoveryProps) {
   const {
     ref,
+    backgroundImage,
     productImage,
     label,
     headline,
@@ -72,6 +74,10 @@ export default function ShamalDiscovery(props: ShamalDiscoveryProps) {
 
   const imageUrl =
     typeof productImage === "string" ? productImage : productImage?.url;
+  const backgroundUrl =
+    typeof backgroundImage === "string"
+      ? backgroundImage
+      : backgroundImage?.url;
 
   const included = [included1, included2, included3].filter(Boolean);
 
@@ -80,9 +86,20 @@ export default function ShamalDiscovery(props: ShamalDiscoveryProps) {
       ref={ref}
       {...rest}
       id="discovery"
-      className="w-full bg-shamal-surface py-32 text-shamal-white md:py-40"
+      className="relative w-full overflow-hidden bg-shamal-surface py-32 text-shamal-white md:py-40"
     >
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-16 px-6 md:grid-cols-2 md:gap-20 md:px-10">
+      {backgroundUrl && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-center bg-cover"
+          style={{ backgroundImage: `url(${backgroundUrl})` }}
+        />
+      )}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-shamal-surface/85"
+      />
+      <div className="relative z-10 mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-16 px-6 md:grid-cols-2 md:gap-20 md:px-10">
         <div className="flex flex-col items-center">
           <div className="relative flex items-center justify-center">
             <div
@@ -216,6 +233,17 @@ export const schema = createSchema({
   type: "shamal-discovery",
   title: "Shamal Discovery",
   settings: [
+    {
+      group: "Background",
+      inputs: [
+        {
+          type: "image",
+          name: "backgroundImage",
+          label: "Background image",
+          defaultValue: "",
+        },
+      ],
+    },
     {
       group: "Product",
       inputs: [
