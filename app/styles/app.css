@@ -270,6 +270,7 @@
   }
   html {
     @apply font-cabin;
+    scroll-behavior: smooth;
     scroll-padding-top: 10rem;
   }
 

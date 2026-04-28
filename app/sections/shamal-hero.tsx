@@ -78,11 +78,8 @@ export default function ShamalHero(props: ShamalHeroProps) {
         )}
       >
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-10">
-          <Link
-            to="/"
-            className="font-cormorant text-lg tracking-[0.45em] text-shamal-white uppercase md:text-xl"
-          >
-            <span className="ml-[0.45em]">SHAMAL</span>
+          <Link to="/">
+            <img src="/shamal-logo.png" alt="Shamal" className="h-7 w-auto" />
           </Link>
           <div className="hidden items-center gap-10 md:flex">
             {NAV_LINKS.map((link) => (
@@ -117,21 +114,17 @@ export default function ShamalHero(props: ShamalHeroProps) {
 
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 py-32 text-center">
         <div className="flex w-full max-w-[640px] flex-col items-center">
-          <h1
-            className="animate-fade-in-up font-cormorant text-5xl text-shamal-gold md:text-6xl"
-            style={{ letterSpacing: "0.55em" }}
-          >
-            <span className="ml-[0.55em]">{wordmark}</span>
-          </h1>
-
-          <div
-            aria-hidden="true"
-            className="mt-8 h-px w-[200px] animate-fade-in-up bg-gradient-to-r from-transparent via-shamal-gold/55 to-transparent [animation-delay:150ms]"
+          <img
+            src="/shamal-logo-gold.png"
+            alt="Shamal"
+            className="mx-auto w-64 animate-fade-in-up opacity-40 md:w-80"
+            style={{
+              animationDelay: "0ms",
+              opacity: 0.4,
+              filter:
+                "brightness(0) invert(1) sepia(1) saturate(0.3) hue-rotate(10deg) brightness(0.95) drop-shadow(0 0 20px rgba(236, 234, 215, 0.3))",
+            }}
           />
-
-          <p className="mt-6 animate-fade-in-up font-cormorant text-sm text-shamal-white-dim italic tracking-[0.15em] [animation-delay:300ms]">
-            {dividerSubtitle}
-          </p>
 
           <h2 className="mt-12 animate-fade-in-up font-cormorant text-5xl font-light text-shamal-white leading-tight md:text-6xl lg:text-7xl [animation-delay:450ms]">
             {headline}
@@ -142,18 +135,36 @@ export default function ShamalHero(props: ShamalHeroProps) {
           </p>
 
           <div className="mt-12 flex w-full animate-fade-in-up flex-col items-center justify-center gap-3 sm:flex-row [animation-delay:750ms]">
-            <Link
-              to={primaryCtaLink}
-              className="inline-flex items-center justify-center bg-shamal-gold px-10 py-4 text-xs font-medium tracking-[0.28em] text-shamal-black uppercase transition-colors duration-300 hover:bg-shamal-gold/90"
-            >
-              {primaryCtaText}
-            </Link>
-            <Link
-              to={secondaryCtaLink}
-              className="inline-flex items-center justify-center border border-shamal-gold-dim/60 bg-transparent px-10 py-4 text-xs font-medium tracking-[0.28em] text-shamal-gold uppercase transition-colors duration-300 hover:border-shamal-gold hover:bg-shamal-gold/10"
-            >
-              {secondaryCtaText}
-            </Link>
+            {primaryCtaLink.startsWith("#") ? (
+              <a
+                href={primaryCtaLink}
+                className="inline-flex items-center justify-center bg-shamal-gold px-10 py-4 text-xs font-medium tracking-[0.28em] text-shamal-black uppercase transition-colors duration-300 hover:bg-shamal-gold/90"
+              >
+                {primaryCtaText}
+              </a>
+            ) : (
+              <Link
+                to={primaryCtaLink}
+                className="inline-flex items-center justify-center bg-shamal-gold px-10 py-4 text-xs font-medium tracking-[0.28em] text-shamal-black uppercase transition-colors duration-300 hover:bg-shamal-gold/90"
+              >
+                {primaryCtaText}
+              </Link>
+            )}
+            {secondaryCtaLink.startsWith("#") ? (
+              <a
+                href={secondaryCtaLink}
+                className="inline-flex items-center justify-center border border-shamal-gold-dim/60 bg-transparent px-10 py-4 text-xs font-medium tracking-[0.28em] text-shamal-gold uppercase transition-colors duration-300 hover:border-shamal-gold hover:bg-shamal-gold/10"
+              >
+                {secondaryCtaText}
+              </a>
+            ) : (
+              <Link
+                to={secondaryCtaLink}
+                className="inline-flex items-center justify-center border border-shamal-gold-dim/60 bg-transparent px-10 py-4 text-xs font-medium tracking-[0.28em] text-shamal-gold uppercase transition-colors duration-300 hover:border-shamal-gold hover:bg-shamal-gold/10"
+              >
+                {secondaryCtaText}
+              </Link>
+            )}
           </div>
 
           {showTeaser && teaserText && (
@@ -250,7 +261,7 @@ export const schema = createSchema({
           type: "text",
           name: "primaryCtaLink",
           label: "Link",
-          defaultValue: "/products/discovery-set",
+          defaultValue: "#story",
         },
       ],
     },
