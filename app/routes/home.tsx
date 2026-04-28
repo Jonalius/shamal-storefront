@@ -1,5 +1,5 @@
 import type { SeoConfig } from "@shopify/hydrogen";
-import { AnalyticsPageType, getSeoMeta } from "@shopify/hydrogen";
+import { AnalyticsPageType, CacheNone, getSeoMeta } from "@shopify/hydrogen";
 import type { PageType } from "@weaverse/hydrogen";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import type { ShopQuery } from "storefront-api.generated";
@@ -25,7 +25,11 @@ export async function loader(args: LoaderFunctionArgs) {
 
   // Load async data in parallel for better performance
   const [weaverseData, { shop }] = await Promise.all([
-    context.weaverse.loadPage({ type }),
+    context.weaverse.loadPage({
+      type,
+      strategy:
+        process.env.NODE_ENV === "development" ? CacheNone() : undefined,
+    }),
     context.storefront.query<ShopQuery>(SHOP_QUERY),
   ]);
 
