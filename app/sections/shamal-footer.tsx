@@ -1,4 +1,8 @@
-import { createSchema, type HydrogenComponentProps } from "@weaverse/hydrogen";
+import {
+  createSchema,
+  type HydrogenComponentProps,
+  type WeaverseImage,
+} from "@weaverse/hydrogen";
 import { Link } from "react-router";
 import { cn } from "~/utils/cn";
 
@@ -9,6 +13,7 @@ interface LinkPair {
 
 interface ShamalFooterProps extends HydrogenComponentProps {
   ref: React.Ref<HTMLElement>;
+  brandLogo: WeaverseImage | string;
   brandTagline1: string;
   brandTagline2: string;
   handcraftedLabel: string;
@@ -38,6 +43,7 @@ interface ShamalFooterProps extends HydrogenComponentProps {
 export default function ShamalFooter(props: ShamalFooterProps) {
   const {
     ref,
+    brandLogo,
     brandTagline1,
     brandTagline2,
     handcraftedLabel,
@@ -78,6 +84,15 @@ export default function ShamalFooter(props: ShamalFooterProps) {
     { text: policy3Text, url: policy3Url },
   ];
 
+  const logoUrl =
+    typeof brandLogo === "string"
+      ? brandLogo || "/shamal-logo-gold.png"
+      : brandLogo?.url || "/shamal-logo-gold.png";
+  const logoAlt =
+    typeof brandLogo === "object" && brandLogo?.altText
+      ? brandLogo.altText
+      : "Shamal";
+
   return (
     <footer ref={ref} {...rest} className="w-full bg-shamal-black px-6 py-20">
       <div className="mx-auto mb-16 flex justify-center">
@@ -99,9 +114,9 @@ export default function ShamalFooter(props: ShamalFooterProps) {
       <div className="mx-auto mt-20 grid max-w-[1200px] grid-cols-1 gap-12 md:grid-cols-3">
         <div className="flex flex-col">
           <img
-            src="/shamal-logo.png"
-            alt="Shamal"
-            className="mb-6 h-8 w-auto"
+            src={logoUrl}
+            alt={logoAlt}
+            className="mb-6 h-40 w-auto object-contain"
           />
           <p className="font-cabin text-sm text-shamal-white-dim leading-relaxed">
             {brandTagline1}
@@ -206,6 +221,12 @@ export const schema = createSchema({
     {
       group: "Brand",
       inputs: [
+        {
+          type: "image",
+          name: "brandLogo",
+          label: "Brand logo",
+          defaultValue: "/shamal-logo-gold.png",
+        },
         {
           type: "textarea",
           name: "brandTagline1",

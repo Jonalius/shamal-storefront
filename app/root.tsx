@@ -159,7 +159,7 @@ export const Layout = withWeaverse(function Layout({
                 <main id="mainContent" className="grow">
                   {children}
                 </main>
-                <Footer />
+                {!isHomepage && <Footer />}
               </div>
             </TooltipProvider>
             <CustomAnalytics />
