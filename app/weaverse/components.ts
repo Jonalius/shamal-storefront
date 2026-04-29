@@ -70,6 +70,7 @@ import * as ShamalHero from "~/sections/shamal-hero";
 import * as ShamalShopGrid from "~/sections/shamal-shop-grid";
 import * as ShamalStory from "~/sections/shamal-story";
 import * as ShamalVoyage from "~/sections/shamal-voyage";
+import * as ShamalWaitlist from "~/sections/shamal-waitlist";
 import * as SingleProduct from "~/sections/single-product";
 import * as SlideShow from "~/sections/slideshow";
 import * as SlideShowSlide from "~/sections/slideshow/slide";
@@ -104,6 +105,7 @@ export const components: HydrogenComponent[] = [
   ShamalDiscovery,
   ShamalShopGrid,
   ShamalCategoryGrid,
+  ShamalWaitlist,
   ImageWithText,
   ImageWithTextContent,
   ImageWithTextImage,
