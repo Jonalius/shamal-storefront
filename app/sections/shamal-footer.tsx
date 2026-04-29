@@ -116,7 +116,8 @@ export default function ShamalFooter(props: ShamalFooterProps) {
           <img
             src={logoUrl}
             alt={logoAlt}
-            className="mb-6 h-40 w-auto object-contain"
+            className="mb-6 h-20 w-auto object-contain"
+            style={{ maxWidth: "240px" }}
           />
           <p className="font-cabin text-sm text-shamal-white-dim leading-relaxed">
             {brandTagline1}
