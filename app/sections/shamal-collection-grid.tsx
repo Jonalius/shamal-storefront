@@ -9,6 +9,7 @@ import type {
 import { cn } from "~/utils/cn";
 
 const PRE_ORDER_TAG = "pre-order";
+const REFILL_TAG = "refill";
 const VOYAGE_TAG_PATTERN = /^(?:voyage|moment)[-\s]?(\d+)$/i;
 
 interface ShamalCollectionGridProps extends HydrogenComponentProps {
@@ -18,6 +19,8 @@ interface ShamalCollectionGridProps extends HydrogenComponentProps {
   emptyCtaText: string;
   emptyCtaLink: string;
   preOrderShipNote: string;
+  refillCtaText: string;
+  refillNote: string;
 }
 
 export default function ShamalCollectionGrid(props: ShamalCollectionGridProps) {
@@ -28,6 +31,8 @@ export default function ShamalCollectionGrid(props: ShamalCollectionGridProps) {
     emptyCtaText,
     emptyCtaLink,
     preOrderShipNote,
+    refillCtaText,
+    refillNote,
     ...rest
   } = props;
 
@@ -122,6 +127,8 @@ export default function ShamalCollectionGrid(props: ShamalCollectionGridProps) {
             key={product.id}
             product={product}
             preOrderShipNote={preOrderShipNote}
+            refillCtaText={refillCtaText}
+            refillNote={refillNote}
             className={revealClass()}
             style={revealStyle(index * 150)}
           />
@@ -134,6 +141,8 @@ export default function ShamalCollectionGrid(props: ShamalCollectionGridProps) {
 interface ProductCardProps {
   product: ProductCardFragment;
   preOrderShipNote: string;
+  refillCtaText: string;
+  refillNote: string;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -141,11 +150,15 @@ interface ProductCardProps {
 function ProductCard({
   product,
   preOrderShipNote,
+  refillCtaText,
+  refillNote,
   className,
   style,
 }: ProductCardProps) {
   const tags = product.tags ?? [];
-  const isPreOrder = tags.some((tag) => tag.toLowerCase() === PRE_ORDER_TAG);
+  const lowerTags = tags.map((tag) => tag.toLowerCase());
+  const isRefill = lowerTags.includes(REFILL_TAG);
+  const isPreOrder = !isRefill && lowerTags.includes(PRE_ORDER_TAG);
   const momentLabel = getMomentLabel(tags);
   const subtitle = getFirstDescriptionLine(product.description);
   const image = product.images?.nodes?.[0];
@@ -199,7 +212,21 @@ function ProductCard({
           <Money data={product.priceRange.minVariantPrice} />
         </p>
 
-        {isPreOrder ? (
+        {isRefill ? (
+          <>
+            <Link
+              to={href}
+              className="mt-6 inline-flex w-full items-center justify-center bg-shamal-gold px-4 py-3 text-[10px] font-medium tracking-[0.25em] text-shamal-black uppercase transition-colors duration-300 hover:bg-shamal-gold/90"
+            >
+              {refillCtaText}
+            </Link>
+            {refillNote && (
+              <p className="mt-3 text-center text-[10px] text-shamal-white-dim italic">
+                {refillNote}
+              </p>
+            )}
+          </>
+        ) : isPreOrder ? (
           <>
             <Link
               to={href}
@@ -267,6 +294,23 @@ export const schema = createSchema({
           name: "preOrderShipNote",
           label: "Ship note (pre-order)",
           defaultValue: "Ships end of June",
+        },
+      ],
+    },
+    {
+      group: "Refill",
+      inputs: [
+        {
+          type: "text",
+          name: "refillCtaText",
+          label: "CTA text (refill)",
+          defaultValue: "REFILL YOUR MOMENT",
+        },
+        {
+          type: "text",
+          name: "refillNote",
+          label: "Note (refill)",
+          defaultValue: "Crafted to order",
         },
       ],
     },
