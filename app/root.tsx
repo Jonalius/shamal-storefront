@@ -103,7 +103,9 @@ export const Layout = withWeaverse(function Layout({
   const data = useRouteLoaderData<RootLoader>("root");
   const locale = data?.selectedLocale ?? DEFAULT_LOCALE;
   const { topbarHeight, topbarText } = useThemeSettings();
-  const isHomepage = location.pathname.replace(locale.pathPrefix, "") === "/";
+  const localePath = location.pathname.replace(locale.pathPrefix, "");
+  const hideChrome =
+    localePath === "/" || localePath.startsWith("/collections/");
 
   // Bypass Weaverse theme layout for Hydrogen dev tools
   // See: https://github.com/Weaverse/pilot/issues/321
@@ -154,12 +156,12 @@ export const Layout = withWeaverse(function Layout({
                     Skip to content
                   </a>
                 </div>
-                {!isHomepage && <ScrollingAnnouncement />}
-                {!isHomepage && <Header />}
+                {!hideChrome && <ScrollingAnnouncement />}
+                {!hideChrome && <Header />}
                 <main id="mainContent" className="grow">
                   {children}
                 </main>
-                {!isHomepage && <Footer />}
+                {!hideChrome && <Footer />}
               </div>
             </TooltipProvider>
             <CustomAnalytics />
