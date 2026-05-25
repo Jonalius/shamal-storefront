@@ -105,7 +105,9 @@ export const Layout = withWeaverse(function Layout({
   const { topbarHeight, topbarText } = useThemeSettings();
   const localePath = location.pathname.replace(locale.pathPrefix, "");
   const hideChrome =
-    localePath === "/" || localePath.startsWith("/collections/");
+    localePath === "/" ||
+    localePath.startsWith("/collections/") ||
+    localePath.startsWith("/products/");
 
   // Bypass Weaverse theme layout for Hydrogen dev tools
   // See: https://github.com/Weaverse/pilot/issues/321

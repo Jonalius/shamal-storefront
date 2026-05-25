@@ -16,6 +16,8 @@ export const PRODUCT_QUERY = `#graphql
       title
       vendor
       handle
+      productType
+      tags
       publishedAt
       descriptionHtml
       description
@@ -26,6 +28,15 @@ export const PRODUCT_QUERY = `#graphql
         id
         url
         altText
+      }
+      images(first: 20) {
+        nodes {
+          id
+          url
+          altText
+          width
+          height
+        }
       }
       priceRange {
         minVariantPrice {
