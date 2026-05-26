@@ -1,0 +1,88 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#mainContent"
+  - main [ref=e4]:
+    - generic [ref=e6]:
+      - generic [ref=e8]:
+        - img "Discovery set" [ref=e12]
+        - generic [ref=e13]:
+          - generic [ref=e14]: PERFUME
+          - heading "Discovery set" [level=1] [ref=e15]
+          - paragraph [ref=e16]: Begin your journey. The Discovery Set houses three 5ml bottles of our current voyages — First Voyage, Winter Voyage, …
+          - generic [ref=e17]:
+            - paragraph [ref=e111]: Begin your journey. The Discovery Set houses three 5ml bottles of our current voyages — First Voyage, Winter Voyage, and Oodi Mökille — in a leather case handcrafted in our Helsinki atelier. The perfect introduction to the Shamal world, and a beautiful object in its own right.
+            - paragraph [ref=e112]: "What's included:"
+            - paragraph [ref=e113]: "- Handmade leather case"
+            - paragraph [ref=e114]: "- First Voyage 5ml"
+            - paragraph [ref=e115]: "- Winter Voyage 5ml"
+            - paragraph [ref=e116]: "- Oodi Mökille 5ml"
+            - paragraph [ref=e117]
+            - paragraph [ref=e118]: Free shipping within Finland and the EU. Ships within 3–5 business days.
+          - generic [ref=e29]: ◆
+          - generic [ref=e33]: €80.00
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - button "Decrease quantity" [disabled] [ref=e36] [cursor=pointer]: −
+              - generic [ref=e37]: "1"
+              - button "Increase quantity" [ref=e38] [cursor=pointer]: +
+            - button "ADD TO CART" [ref=e40] [cursor=pointer]:
+              - generic [ref=e41]: ADD TO CART
+          - paragraph [ref=e42]: Free shipping within Finland & EU
+      - generic [ref=e44]:
+        - generic [ref=e45]: THE NOTES
+        - generic [ref=e46]:
+          - heading "What's included" [level=3] [ref=e47]
+          - list [ref=e48]:
+            - listitem [ref=e49]:
+              - generic [ref=e50]: ◆
+              - generic [ref=e51]: Handmade leather case
+            - listitem [ref=e52]:
+              - generic [ref=e53]: ◆
+              - generic [ref=e54]: First Voyage 5ml · Winter Voyage 5ml · Oodi Mökille 5ml
+            - listitem [ref=e55]:
+              - generic [ref=e56]: ◆
+              - generic [ref=e57]: Free shipping within Finland & EU
+        - generic [ref=e61]: ◆
+        - paragraph [ref=e63]: Crafted in Helsinki
+      - generic [ref=e64]:
+        - generic [ref=e67]:
+          - generic [ref=e68]: HANDCRAFTED IN FINLAND
+          - paragraph [ref=e69]: Blended at our Lohja atelier. Ancient oud. Nordic botanicals. Small batch only.
+        - generic [ref=e72]:
+          - generic [ref=e73]:
+            - img "Shamal" [ref=e74]
+            - paragraph [ref=e75]: Artisan fragrances handcrafted in Helsinki, Finland.
+            - paragraph [ref=e76]: Where Nordic silence meets Eastern mystery.
+          - generic [ref=e77]:
+            - generic [ref=e78]: EXPLORE
+            - list [ref=e79]:
+              - listitem [ref=e80]:
+                - link "Our Story" [ref=e81] [cursor=pointer]:
+                  - /url: /products/discovery-set#story
+              - listitem [ref=e82]:
+                - link "The Voyages" [ref=e83] [cursor=pointer]:
+                  - /url: /products/discovery-set#voyages
+              - listitem [ref=e84]:
+                - link "The Journal" [ref=e85] [cursor=pointer]:
+                  - /url: /journal
+              - listitem [ref=e86]:
+                - link "Shop All" [ref=e87] [cursor=pointer]:
+                  - /url: /products/discovery-set#shop
+          - generic [ref=e88]:
+            - generic [ref=e89]: CONTACT
+            - paragraph [ref=e90]: Helsinki, Finland
+            - paragraph [ref=e91]: Lohja Atelier
+            - link "hello@shamal.fi" [ref=e92] [cursor=pointer]:
+              - /url: mailto:hello@shamal.fi
+        - generic [ref=e93]:
+          - paragraph [ref=e94]: © 2026 Shamal. All rights reserved.
+          - list [ref=e95]:
+            - listitem [ref=e96]:
+              - link "Privacy" [ref=e97] [cursor=pointer]:
+                - /url: /policies/privacy-policy
+            - listitem [ref=e98]:
+              - link "Terms" [ref=e99] [cursor=pointer]:
+                - /url: /policies/terms-of-service
+            - listitem [ref=e100]:
+              - link "Shipping" [ref=e101] [cursor=pointer]:
+                - /url: /policies/shipping-policy

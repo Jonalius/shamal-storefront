@@ -18,6 +18,7 @@ import {
   useRouteLoaderData,
 } from "react-router";
 import { loadCriticalData, loadDeferredData } from "./.server/root";
+import { CartDrawer } from "./components/cart/cart-drawer";
 import { Footer } from "./components/layout/footer";
 import { Header } from "./components/layout/header";
 import { ScrollingAnnouncement } from "./components/layout/scrolling-announcement";
@@ -164,6 +165,11 @@ export const Layout = withWeaverse(function Layout({
                   {children}
                 </main>
                 {!hideChrome && <Footer />}
+                {hideChrome && (
+                  <div className="hidden">
+                    <CartDrawer />
+                  </div>
+                )}
               </div>
             </TooltipProvider>
             <CustomAnalytics />
