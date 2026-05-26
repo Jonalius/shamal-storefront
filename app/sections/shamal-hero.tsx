@@ -1,4 +1,3 @@
-import { HandbagIcon } from "@phosphor-icons/react";
 import {
   createSchema,
   type HydrogenComponentProps,
@@ -6,6 +5,7 @@ import {
 } from "@weaverse/hydrogen";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { ShamalCartTrigger } from "~/components/shamal-cart-trigger";
 import { cn } from "~/utils/cn";
 
 const NAV_LINKS = [
@@ -92,13 +92,7 @@ export default function ShamalHero(props: ShamalHeroProps) {
               </a>
             ))}
           </div>
-          <button
-            type="button"
-            aria-label="Open cart"
-            className="flex h-9 w-9 items-center justify-center text-shamal-white transition-colors duration-300 hover:text-shamal-gold"
-          >
-            <HandbagIcon className="h-5 w-5" weight="light" />
-          </button>
+          <ShamalCartTrigger />
         </div>
       </nav>
 
