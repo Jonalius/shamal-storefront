@@ -26,6 +26,7 @@ import { CustomAnalytics } from "./components/root/custom-analytics";
 import { GenericError } from "./components/root/generic-error";
 import { GlobalLoading } from "./components/root/global-loading";
 import { NotFound } from "./components/root/not-found";
+import { ShamalNav } from "./components/shamal-nav";
 import styles from "./styles/app.css?url";
 import { DEFAULT_LOCALE } from "./utils/const";
 import { GlobalStyle } from "./weaverse/style";
@@ -161,6 +162,7 @@ export const Layout = withWeaverse(function Layout({
                 </div>
                 {!hideChrome && <ScrollingAnnouncement />}
                 {!hideChrome && <Header />}
+                {hideChrome && <ShamalNav />}
                 <main id="mainContent" className="grow">
                   {children}
                 </main>

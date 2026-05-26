@@ -76,7 +76,13 @@ function AddToCartButtonContent({
   const isLoading = fetcher.state !== "idle";
 
   useEffect(() => {
-    if (prevStateRef.current !== "idle" && fetcher.state === "idle") {
+    // Open the drawer the moment the submission starts (idle -> submitting)
+    // instead of waiting for the action + revalidation round-trips to settle
+    // back to idle. CartMain's useOptimisticCart renders the added line right
+    // away, so the drawer feels instant; the count and totals reconcile when
+    // the server response lands. Opening only on this transition means a user
+    // who closes the drawer mid-request won't have it reopened on them.
+    if (prevStateRef.current === "idle" && fetcher.state !== "idle") {
       openCartDrawer();
     }
     prevStateRef.current = fetcher.state;

@@ -3,17 +3,7 @@ import {
   type HydrogenComponentProps,
   type WeaverseImage,
 } from "@weaverse/hydrogen";
-import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { ShamalCartTrigger } from "~/components/shamal-cart-trigger";
-import { cn } from "~/utils/cn";
-
-const NAV_LINKS = [
-  { label: "Our Story", href: "#story" },
-  { label: "The Voyages", href: "#voyages" },
-  { label: "The Journal", href: "#journal" },
-  { label: "Shop", href: "#shop" },
-] as const;
 
 interface ShamalHeroProps extends HydrogenComponentProps {
   ref: React.Ref<HTMLElement>;
@@ -47,17 +37,6 @@ export default function ShamalHero(props: ShamalHeroProps) {
     ...rest
   } = props;
 
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 50);
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const imageUrl =
     typeof backgroundImage === "string"
       ? backgroundImage
@@ -69,33 +48,6 @@ export default function ShamalHero(props: ShamalHeroProps) {
       {...rest}
       className="relative min-h-screen w-full overflow-hidden bg-shamal-black text-shamal-white"
     >
-      <nav
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-500 ease-out",
-          scrolled
-            ? "border-b border-shamal-white/10 bg-shamal-black/95 backdrop-blur-sm"
-            : "border-b border-transparent bg-transparent",
-        )}
-      >
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-10">
-          <Link to="/">
-            <img src="/shamal-logo.png" alt="Shamal" className="h-7 w-auto" />
-          </Link>
-          <div className="hidden items-center gap-10 md:flex">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-[11px] font-light tracking-[0.28em] text-shamal-white-dim uppercase transition-colors duration-300 hover:text-shamal-gold"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-          <ShamalCartTrigger />
-        </div>
-      </nav>
-
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-center bg-cover"
