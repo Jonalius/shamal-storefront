@@ -84,7 +84,8 @@ export default function ShamalArticle(props: ShamalArticleProps) {
   const tag = article.tags?.[0];
   const image = article.image;
   const authorName = article.author?.name;
-  const { bodyHtml, faqs } = splitFaqFromHtml(article.contentHtml);
+  const normalizedHtml = normalizeArticleContent(article.contentHtml);
+  const { bodyHtml, faqs } = splitFaqFromHtml(normalizedHtml);
   const articleHref = `/blogs/${blogHandle}/${article.handle}`;
   const domain = rootData?.layout?.shop?.primaryDomain?.url ?? "";
   const fullUrl = domain
@@ -287,6 +288,94 @@ interface ParsedFaq {
 interface SplitResult {
   bodyHtml: string;
   faqs: ParsedFaq[];
+}
+
+const FAQ_PLAIN_TEXT_PATTERN = /^frequently\s+asked\s+questions\b/i;
+
+const BLOCK_LEVEL_HTML_PATTERN =
+  /<(h[1-6]|p|ul|ol|blockquote|article|section|div)\b/i;
+
+const INTERNAL_LINK_PATTERN =
+  /(\/(?:collections|products|pages|blogs)\/[^\s.,!?)]+)/g;
+
+const HEADING_MAX_LENGTH = 100;
+
+export function normalizeArticleContent(input: string): string {
+  if (!input) return "";
+  if (BLOCK_LEVEL_HTML_PATTERN.test(input)) {
+    return input;
+  }
+  const blocks = input
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+
+  const out: string[] = [];
+  let faqStarted = false;
+
+  for (const block of blocks) {
+    const lines = block
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+    if (lines.length === 0) continue;
+
+    if (!faqStarted && FAQ_PLAIN_TEXT_PATTERN.test(lines[0])) {
+      faqStarted = true;
+      out.push(`<h2>${escapeHtml(lines[0])}</h2>`);
+      if (lines.length >= 2) {
+        const question = lines[1];
+        const answer = lines.slice(2).join(" ");
+        out.push(`<h3>${escapeHtml(question)}</h3>`);
+        if (answer) out.push(`<p>${linkify(escapeHtml(answer))}</p>`);
+      }
+      continue;
+    }
+
+    if (faqStarted) {
+      const question = lines[0];
+      const answer = lines.slice(1).join(" ");
+      out.push(`<h3>${escapeHtml(question)}</h3>`);
+      if (answer) out.push(`<p>${linkify(escapeHtml(answer))}</p>`);
+      continue;
+    }
+
+    if (lines.length >= 2 && isHeadingLine(lines[0])) {
+      const heading = lines[0];
+      const body = lines.slice(1).join(" ");
+      out.push(`<h2>${escapeHtml(heading)}</h2>`);
+      out.push(`<p>${linkify(escapeHtml(body))}</p>`);
+    } else {
+      out.push(`<p>${linkify(escapeHtml(lines.join(" ")))}</p>`);
+    }
+  }
+
+  return out.join("\n");
+}
+
+function isHeadingLine(line: string): boolean {
+  if (line.length > HEADING_MAX_LENGTH) return false;
+  if (line.endsWith("?")) return true;
+  const last = line.slice(-1);
+  if (last === "." || last === "!" || last === ":" || last === ";")
+    return false;
+  return true;
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function linkify(value: string): string {
+  return value.replace(
+    INTERNAL_LINK_PATTERN,
+    (match) => `<a href="${match}">${match}</a>`,
+  );
 }
 
 const FAQ_HEADING_PATTERN =
