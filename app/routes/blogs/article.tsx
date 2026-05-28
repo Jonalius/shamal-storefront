@@ -138,6 +138,7 @@ const ARTICLE_QUERY = `#graphql
       height
     }
     publishedAt
+    tags
     title
   }
 ` as const;
