@@ -193,7 +193,7 @@ export const schema = createSchema({
           type: "text",
           name: "headline",
           label: "Headline",
-          defaultValue: "Don't miss the first voyage.",
+          defaultValue: "Don't miss the launch.",
         },
         {
           type: "textarea",
@@ -217,7 +217,7 @@ export const schema = createSchema({
           type: "text",
           name: "buttonText",
           label: "Button text",
-          defaultValue: "Join the Voyage",
+          defaultValue: "Join the Waitlist",
         },
         {
           type: "text",

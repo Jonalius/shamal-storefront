@@ -299,7 +299,7 @@ export const schema = createSchema({
           type: "text",
           name: "cat1Subtitle",
           label: "Subtitle",
-          defaultValue: "The five voyages",
+          defaultValue: "Five seasons of Finland",
         },
         {
           type: "image",

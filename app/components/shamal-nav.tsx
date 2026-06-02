@@ -8,7 +8,7 @@ import { cn } from "~/utils/cn";
 // they navigate home and scroll to the section.
 const NAV_LINKS = [
   { label: "Our Story", href: "/#story" },
-  { label: "The Voyages", href: "/#voyages" },
+  { label: "Nordic Seasons", href: "/#voyages" },
   { label: "The Journal", href: "/#journal" },
   { label: "Shop", href: "/#shop" },
 ] as const;

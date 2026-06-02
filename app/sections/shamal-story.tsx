@@ -357,7 +357,7 @@ export const schema = createSchema({
           type: "text",
           name: "pill3Title",
           label: "Title",
-          defaultValue: "LIMITED VOYAGES",
+          defaultValue: "LIMITED EDITIONS",
         },
         {
           type: "textarea",

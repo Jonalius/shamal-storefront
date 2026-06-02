@@ -267,7 +267,7 @@ export const schema = createSchema({
           type: "text",
           name: "exploreLink2Text",
           label: "Link 2 text",
-          defaultValue: "The Voyages",
+          defaultValue: "Nordic Seasons",
         },
         {
           type: "text",

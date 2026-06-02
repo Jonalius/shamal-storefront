@@ -112,7 +112,7 @@ export default function ShamalJournalIndex(props: ShamalJournalIndexProps) {
             )}
             style={revealStyle(480)}
           >
-            New voyages will appear here soon.
+            New stories will appear here soon.
           </p>
         ) : (
           <div className="mt-20 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">

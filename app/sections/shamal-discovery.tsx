@@ -115,7 +115,7 @@ export default function ShamalDiscovery(props: ShamalDiscoveryProps) {
             )}
           </div>
           <p className="mt-8 font-cormorant text-sm text-shamal-white-dim italic">
-            Handmade leather case · Three 5ml voyages
+            Handmade leather case · Three 5ml fragrances
           </p>
         </div>
 
@@ -286,7 +286,7 @@ export const schema = createSchema({
           name: "bodyText",
           label: "Body",
           defaultValue:
-            "Each Discovery Set contains a handmade leather case crafted in our Helsinki atelier, housing three 5ml bottles of our current voyages. The perfect first step into the world of Shamal — and a beautiful object in its own right.",
+            "Each Discovery Set contains a handmade leather case crafted in our Helsinki atelier, housing three 5ml bottles from our Nordic Seasons collection. The perfect first step into the world of Shamal — and a beautiful object in its own right.",
         },
       ],
     },

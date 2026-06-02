@@ -258,14 +258,14 @@ export const schema = createSchema({
           type: "text",
           name: "headline",
           label: "Headline",
-          defaultValue: "Three Voyages. Limited Edition.",
+          defaultValue: "Three Seasons. Limited Edition.",
         },
         {
           type: "textarea",
           name: "subtext",
           label: "Subtext",
           defaultValue:
-            "Each fragrance is handcrafted in small batches at our Lohja atelier. The first three voyages arrive soon. Reserve yours before the world knows.",
+            "Each fragrance is handcrafted in small batches at our Lohja atelier. The first three seasons arrive soon. Reserve yours before the world knows.",
         },
       ],
     },
