@@ -312,10 +312,6 @@ export const loader = async ({
 export const schema = createSchema({
   type: "shamal-journal-teaser",
   title: "Shamal Journal Teaser",
-  limit: 1,
-  enabledOn: {
-    pages: ["INDEX"],
-  },
   settings: [
     {
       group: "Header",
