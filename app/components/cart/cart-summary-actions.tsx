@@ -5,8 +5,33 @@ import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import type { CartApiQueryFragment } from "storefront-api.generated";
 import { Banner } from "~/components/banner";
-import { Button } from "~/components/button";
 import { cn } from "~/utils/cn";
+
+const OVERLAY_CLASS =
+  "fixed inset-0 z-50 bg-shamal-black/70 data-[state=open]:animate-fade-in";
+
+const CONTENT_WRAPPER_CLASS = cn(
+  "fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-xs",
+  "[--slide-up-from:20px]",
+  "data-[state=open]:animate-slide-up",
+);
+
+const PANEL_CLASS =
+  "relative w-full max-w-md overflow-hidden bg-shamal-surface p-8 text-shamal-white";
+
+const CLOSE_BUTTON_CLASS =
+  "absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center text-shamal-white-dim transition-colors duration-300 hover:text-shamal-gold focus-visible:outline-0";
+
+const TITLE_CLASS = "mb-6 font-cormorant text-3xl text-shamal-white";
+
+const INPUT_CLASS =
+  "w-full border border-shamal-white-dim/20 bg-transparent p-3 font-light text-shamal-white placeholder:text-shamal-white-dim focus:border-shamal-gold focus:outline-none";
+
+const CANCEL_BUTTON_CLASS =
+  "px-4 py-3 text-[11px] font-light tracking-[0.28em] text-shamal-white-dim uppercase transition-colors duration-300 hover:text-shamal-gold disabled:cursor-not-allowed disabled:opacity-50";
+
+const PRIMARY_BUTTON_CLASS =
+  "inline-flex min-w-32 items-center justify-center bg-shamal-gold px-6 py-3 text-[11px] font-medium tracking-[0.28em] text-shamal-black uppercase transition-colors duration-300 hover:bg-shamal-gold/90 disabled:cursor-not-allowed disabled:opacity-60";
 
 export function NoteDialog({ cartNote: currentNote }: { cartNote: string }) {
   const [note, setNote] = useState(currentNote);
@@ -39,38 +64,32 @@ export function NoteDialog({ cartNote: currentNote }: { cartNote: string }) {
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 z-50 bg-gray-900/50 data-[state=open]:animate-fade-in" />
+      <Dialog.Overlay className={OVERLAY_CLASS} />
       <Dialog.Content
         onCloseAutoFocus={(e) => {
           e.preventDefault();
           setNote(currentNote);
           setSubmitted(false);
         }}
-        className={cn(
-          "fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-xs",
-          "[--slide-up-from:20px]",
-          "data-[state=open]:animate-slide-up",
-        )}
+        className={CONTENT_WRAPPER_CLASS}
         aria-describedby={undefined}
       >
-        <div className="relative w-full max-w-md overflow-hidden bg-white p-6 shadow-xl">
+        <div className={PANEL_CLASS}>
           <Dialog.Close asChild>
             <button
               type="button"
-              className="absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 backdrop-blur transition-colors hover:bg-gray-100 focus-visible:outline-0"
+              className={CLOSE_BUTTON_CLASS}
               aria-label="Close"
             >
-              <XIcon size={16} />
+              <XIcon size={18} />
             </button>
           </Dialog.Close>
 
-          <Dialog.Title className="mb-4 font-medium text-lg">
-            Add a note
-          </Dialog.Title>
+          <Dialog.Title className={TITLE_CLASS}>Add a note</Dialog.Title>
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <textarea
-              className="min-h-20 w-full resize-none p-3"
+              className={cn(INPUT_CLASS, "min-h-24 resize-none")}
               placeholder="Add any special instructions or notes for your order..."
               rows={4}
               name="cartNote"
@@ -81,22 +100,21 @@ export function NoteDialog({ cartNote: currentNote }: { cartNote: string }) {
               }}
             />
             {submitted && (
-              <Banner variant="success">Cart note saved successfully 🎉</Banner>
+              <Banner variant="success">Cart note saved successfully</Banner>
             )}
-            <div className="flex items-center justify-end gap-3">
+            <div className="flex items-center justify-end gap-2">
               <Dialog.Close asChild>
-                <Button variant="custom" className="w-24 border-none">
+                <button type="button" className={CANCEL_BUTTON_CLASS}>
                   Cancel
-                </Button>
+                </button>
               </Dialog.Close>
-              <Button
+              <button
                 type="submit"
-                loading={fetcher.state !== "idle"}
                 disabled={fetcher.state !== "idle"}
-                className="w-24 leading-tight! [--spinner-duration:400ms]"
+                className={PRIMARY_BUTTON_CLASS}
               >
-                Save note
-              </Button>
+                {fetcher.state !== "idle" ? "Saving" : "Save note"}
+              </button>
             </div>
           </form>
         </div>
@@ -140,68 +158,61 @@ export function DiscountDialog({
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 z-50 bg-gray-900/50 data-[state=open]:animate-fade-in" />
+      <Dialog.Overlay className={OVERLAY_CLASS} />
       <Dialog.Content
         onCloseAutoFocus={(e) => {
           e.preventDefault();
           setCode("");
           fetcher.data = null;
         }}
-        className={cn(
-          "fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-xs",
-          "[--slide-up-from:20px]",
-          "data-[state=open]:animate-slide-up",
-        )}
+        className={CONTENT_WRAPPER_CLASS}
         aria-describedby={undefined}
       >
-        <div className="relative w-full max-w-md overflow-hidden bg-white p-6 shadow-xl">
+        <div className={PANEL_CLASS}>
           <Dialog.Close asChild>
             <button
               type="button"
-              className="absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 backdrop-blur transition-colors hover:bg-gray-100 focus-visible:outline-0"
+              className={CLOSE_BUTTON_CLASS}
               aria-label="Close"
             >
-              <XIcon size={16} />
+              <XIcon size={18} />
             </button>
           </Dialog.Close>
 
-          <Dialog.Title className="mb-4 font-medium text-xl">
+          <Dialog.Title className={TITLE_CLASS}>
             Apply a discount code
           </Dialog.Title>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <input
               value={code}
               onChange={(e) => {
                 setCode(e.target.value);
                 fetcher.data = null;
               }}
-              className="w-full p-3"
+              className={INPUT_CLASS}
               type="text"
               name="discountCode"
               placeholder="Discount code"
               required
             />
             {success && (
-              <Banner variant="success">
-                Discount applied successfully 🎉
-              </Banner>
+              <Banner variant="success">Discount applied successfully</Banner>
             )}
             {error && <Banner variant="error">Invalid discount code.</Banner>}
-            <div className="flex items-center justify-end gap-3">
+            <div className="flex items-center justify-end gap-2">
               <Dialog.Close asChild>
-                <Button variant="custom" className="w-24 border-none">
+                <button type="button" className={CANCEL_BUTTON_CLASS}>
                   Cancel
-                </Button>
+                </button>
               </Dialog.Close>
-              <Button
+              <button
                 type="submit"
-                className="w-24 leading-tight! [--spinner-duration:400ms]"
-                loading={fetcher.state !== "idle"}
+                className={PRIMARY_BUTTON_CLASS}
                 disabled={fetcher.state !== "idle"}
               >
-                Apply
-              </Button>
+                {fetcher.state !== "idle" ? "Applying" : "Apply"}
+              </button>
             </div>
           </form>
         </div>
@@ -247,38 +258,34 @@ export function GiftCardDialog({
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 z-50 bg-gray-900/50 data-[state=open]:animate-fade-in" />
+      <Dialog.Overlay className={OVERLAY_CLASS} />
       <Dialog.Content
         onCloseAutoFocus={(e) => {
           e.preventDefault();
           setCode("");
           fetcher.data = null;
         }}
-        className={cn(
-          "fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-xs",
-          "[--slide-up-from:20px]",
-          "data-[state=open]:animate-slide-up",
-        )}
+        className={CONTENT_WRAPPER_CLASS}
         aria-describedby={undefined}
       >
-        <div className="relative w-full max-w-md overflow-hidden bg-white p-6 shadow-xl">
+        <div className={PANEL_CLASS}>
           <Dialog.Close asChild>
             <button
               type="button"
-              className="absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 backdrop-blur transition-colors hover:bg-gray-100 focus-visible:outline-0"
+              className={CLOSE_BUTTON_CLASS}
               aria-label="Close"
             >
-              <XIcon size={16} />
+              <XIcon size={18} />
             </button>
           </Dialog.Close>
 
-          <Dialog.Title className="mb-4 font-medium text-xl">
+          <Dialog.Title className={TITLE_CLASS}>
             Redeem a gift card
           </Dialog.Title>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <input
-              className="w-full p-3"
+              className={INPUT_CLASS}
               type="text"
               name="giftCardCode"
               placeholder="Gift card code"
@@ -290,25 +297,22 @@ export function GiftCardDialog({
               required
             />
             {success && (
-              <Banner variant="success">
-                Gift card applied successfully 🎉
-              </Banner>
+              <Banner variant="success">Gift card applied successfully</Banner>
             )}
             {error && <Banner variant="error">Invalid gift card code.</Banner>}
-            <div className="flex items-center justify-end gap-3">
+            <div className="flex items-center justify-end gap-2">
               <Dialog.Close asChild>
-                <Button variant="custom" className="w-24 border-none">
+                <button type="button" className={CANCEL_BUTTON_CLASS}>
                   Cancel
-                </Button>
+                </button>
               </Dialog.Close>
-              <Button
+              <button
                 type="submit"
-                className="w-24 leading-tight! [--spinner-duration:400ms]"
-                loading={fetcher.state !== "idle"}
+                className={PRIMARY_BUTTON_CLASS}
                 disabled={fetcher.state !== "idle"}
               >
-                Redeem
-              </Button>
+                {fetcher.state !== "idle" ? "Redeeming" : "Redeem"}
+              </button>
             </div>
           </form>
         </div>
