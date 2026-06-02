@@ -1,0 +1,70 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - button "Show Documentation Explorer" [ref=e5] [cursor=pointer]:
+        - img "hm icon"
+      - button "Show History" [ref=e6] [cursor=pointer]:
+        - img
+      - button "Show GraphiQL Explorer" [ref=e7] [cursor=pointer]:
+        - img
+      - button "Re-fetch GraphQL schema (Shift-Ctrl-R)" [disabled] [ref=e8] [cursor=pointer]:
+        - img
+      - button "Open short keys dialog" [ref=e9] [cursor=pointer]:
+        - img
+      - button "Open settings dialog" [ref=e10] [cursor=pointer]:
+        - img
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - tablist "Select active operation" [ref=e15]:
+          - tab "<untitled>" [selected] [ref=e16]:
+            - button "<untitled>" [ref=e17] [cursor=pointer]
+        - button "New tab" [ref=e18] [cursor=pointer]:
+          - img
+        - generic [ref=e20]:
+          - generic [ref=e21]: Storefront API
+          - link "GraphiQL" [ref=e23] [cursor=pointer]:
+            - /url: https://github.com/graphql/graphiql
+            - text: Graph
+            - emphasis [ref=e24]: i
+            - text: QL
+      - tabpanel "<untitled>" [ref=e25]:
+        - generic [ref=e26]:
+          - region "Operation Editor" [ref=e27]:
+            - code [ref=e29]:
+              - generic [ref=e30]:
+                - generic [ref=e32]:
+                  - generic [ref=e35]: "1"
+                  - generic [ref=e37]: "2"
+                  - generic [ref=e39]: "3"
+                  - generic [ref=e41]: "4"
+                  - generic [ref=e43]: "5"
+                - generic [ref=e54]:
+                  - generic [ref=e56]: "{"
+                  - generic [ref=e58]: "shop {"
+                  - generic [ref=e60]: name
+                  - generic [ref=e62]: "}"
+                  - generic [ref=e64]: "}"
+                - textbox "Editor content" [ref=e65]
+            - toolbar "Editor Commands" [ref=e66]:
+              - button "Execute query (Cmd-Enter)" [ref=e67] [cursor=pointer]:
+                - img "zm icon"
+              - button "Toggle between different API schemas" [ref=e68] [cursor=pointer]:
+                - generic [ref=e69]:
+                  - text: SF
+                  - generic [ref=e70]: API
+          - generic [ref=e71]:
+            - button "Variables" [ref=e72] [cursor=pointer]
+            - button "Headers" [ref=e73] [cursor=pointer]
+            - button "Hide editor tools" [ref=e74] [cursor=pointer]:
+              - img
+          - region "Variables" [ref=e75]:
+            - code [ref=e77]:
+              - generic [ref=e78]:
+                - generic [ref=e83]: "1"
+                - textbox "Editor content" [ref=e88]
+        - region "Result Window" [ref=e91]:
+          - code [ref=e92]:
+            - textbox "Editor content" [ref=e102]
+  - generic [ref=e103]:
+    - alert
+    - alert

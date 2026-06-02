@@ -1,0 +1,109 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#mainContent"
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Shamal" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Shamal" [ref=e7]
+      - generic [ref=e8]:
+        - link "Our Story" [ref=e9] [cursor=pointer]:
+          - /url: /#story
+        - link "The Voyages" [ref=e10] [cursor=pointer]:
+          - /url: /#voyages
+        - link "The Journal" [ref=e11] [cursor=pointer]:
+          - /url: /#journal
+        - link "Shop" [ref=e12] [cursor=pointer]:
+          - /url: /#shop
+      - button "Open cart" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: THE JOURNAL
+          - generic [ref=e25]: ◆
+          - heading "Journal" [level=1] [ref=e27]
+          - paragraph [ref=e28]: On Fragrance, Place & Memory
+        - generic [ref=e29]:
+          - article [ref=e30]:
+            - link [ref=e31] [cursor=pointer]:
+              - /url: /blogs/journal/what-is-oud
+            - generic [ref=e33]:
+              - generic [ref=e34]: THE CRAFT
+              - heading "What Is Oud? The Ancient Resin at the Heart of Shamal Fragrances" [level=2] [ref=e35]:
+                - link "What Is Oud? The Ancient Resin at the Heart of Shamal Fragrances" [ref=e36] [cursor=pointer]:
+                  - /url: /blogs/journal/what-is-oud
+              - paragraph [ref=e37]: "From the forests of Southeast Asia to a Helsinki atelier: the story of perfumery's most precious ingredient."
+              - link "Read" [ref=e38] [cursor=pointer]:
+                - /url: /blogs/journal/what-is-oud
+                - generic [ref=e39]: Read
+                - generic [ref=e40]: →
+          - article [ref=e41]:
+            - link [ref=e42] [cursor=pointer]:
+              - /url: /blogs/journal/lily-of-the-valley
+            - generic [ref=e44]:
+              - generic [ref=e45]: NORDIC INGREDIENTS
+              - 'heading "Lily of the Valley: Finland''s Most Beloved Scent" [level=2] [ref=e46]':
+                - 'link "Lily of the Valley: Finland''s Most Beloved Scent" [ref=e47] [cursor=pointer]':
+                  - /url: /blogs/journal/lily-of-the-valley
+              - paragraph [ref=e48]: Why kielo, the small white bell of the Finnish spring, became the soul of Oodi Mökille.
+              - link "Read" [ref=e49] [cursor=pointer]:
+                - /url: /blogs/journal/lily-of-the-valley
+                - generic [ref=e50]: Read
+                - generic [ref=e51]: →
+          - article [ref=e52]:
+            - link [ref=e53] [cursor=pointer]:
+              - /url: /blogs/journal/finnish-mokki
+            - generic [ref=e55]:
+              - generic [ref=e56]: BEHIND THE VOYAGE
+              - 'heading "The Finnish Mökki: A Way of Life Bottled in Glass | Shamal" [level=2] [ref=e57]':
+                - 'link "The Finnish Mökki: A Way of Life Bottled in Glass | Shamal" [ref=e58] [cursor=pointer]':
+                  - /url: /blogs/journal/finnish-mokki
+              - paragraph [ref=e59]: What Finland's summer cabin philosophy taught us about slowness, memory, and making a fragrance that lasts.
+              - link "Read" [ref=e60] [cursor=pointer]:
+                - /url: /blogs/journal/finnish-mokki
+                - generic [ref=e61]: Read
+                - generic [ref=e62]: →
+      - generic [ref=e63]:
+        - generic [ref=e66]:
+          - generic [ref=e67]: HANDCRAFTED IN FINLAND
+          - paragraph [ref=e68]: Blended at our Lohja atelier. Ancient oud. Nordic botanicals. Small batch only.
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - img "Shamal" [ref=e73]
+            - paragraph [ref=e74]: Artisan fragrances handcrafted in Helsinki, Finland.
+            - paragraph [ref=e75]: Where Nordic silence meets Eastern mystery.
+          - generic [ref=e76]:
+            - generic [ref=e77]: EXPLORE
+            - list [ref=e78]:
+              - listitem [ref=e79]:
+                - link "Our Story" [ref=e80] [cursor=pointer]:
+                  - /url: /blogs/journal#story
+              - listitem [ref=e81]:
+                - link "The Voyages" [ref=e82] [cursor=pointer]:
+                  - /url: /blogs/journal#voyages
+              - listitem [ref=e83]:
+                - link "The Journal" [ref=e84] [cursor=pointer]:
+                  - /url: /journal
+              - listitem [ref=e85]:
+                - link "Shop All" [ref=e86] [cursor=pointer]:
+                  - /url: /blogs/journal#shop
+          - generic [ref=e87]:
+            - generic [ref=e88]: CONTACT
+            - paragraph [ref=e89]: Helsinki, Finland
+            - paragraph [ref=e90]: Lohja Atelier
+            - link "hello@shamal.fi" [ref=e91] [cursor=pointer]:
+              - /url: mailto:hello@shamal.fi
+        - generic [ref=e92]:
+          - paragraph [ref=e93]: © 2026 Shamal. All rights reserved.
+          - list [ref=e94]:
+            - listitem [ref=e95]:
+              - link "Privacy" [ref=e96] [cursor=pointer]:
+                - /url: /policies/privacy-policy
+            - listitem [ref=e97]:
+              - link "Terms" [ref=e98] [cursor=pointer]:
+                - /url: /policies/terms-of-service
+            - listitem [ref=e99]:
+              - link "Shipping" [ref=e100] [cursor=pointer]:
+                - /url: /policies/shipping-policy

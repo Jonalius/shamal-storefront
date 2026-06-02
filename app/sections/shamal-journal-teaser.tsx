@@ -40,10 +40,44 @@ interface ShamalJournalTeaserProps
   ref: React.Ref<HTMLElement>;
 }
 
+const PLACEHOLDER_ARTICLES: TeaserArticle[] = [
+  {
+    id: "placeholder-1",
+    handle: "",
+    title: "An article from the Journal will appear here.",
+    excerpt: "Publish posts to the journal blog to populate this teaser.",
+    publishedAt: "",
+    tags: ["the-journal"],
+    image: null,
+  },
+  {
+    id: "placeholder-2",
+    handle: "",
+    title: "Stories on fragrance, place and memory.",
+    excerpt:
+      "Each card links to the most recent journal article once available.",
+    publishedAt: "",
+    tags: ["the-journal"],
+    image: null,
+  },
+  {
+    id: "placeholder-3",
+    handle: "",
+    title: "Quiet reflections from the Lohja atelier.",
+    excerpt: "Add three or more posts to the journal blog for the full layout.",
+    publishedAt: "",
+    tags: ["the-journal"],
+    image: null,
+  },
+];
+
 export default function ShamalJournalTeaser(props: ShamalJournalTeaserProps) {
   const { ref, eyebrow, headline, ctaText, loaderData, ...rest } = props;
-  const articles = loaderData?.articles ?? [];
+  const fetchedArticles = loaderData?.articles ?? [];
   const blogHandle = loaderData?.blogHandle ?? "journal";
+  const articles =
+    fetchedArticles.length > 0 ? fetchedArticles : PLACEHOLDER_ARTICLES;
+  const isPlaceholder = fetchedArticles.length === 0;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -70,10 +104,6 @@ export default function ShamalJournalTeaser(props: ShamalJournalTeaserProps) {
 
   function revealStyle(delayMs: number): React.CSSProperties {
     return { animationDelay: `${delayMs}ms` };
-  }
-
-  if (articles.length === 0) {
-    return null;
   }
 
   return (
@@ -110,6 +140,7 @@ export default function ShamalJournalTeaser(props: ShamalJournalTeaserProps) {
               key={article.id}
               article={article}
               blogHandle={blogHandle}
+              isPlaceholder={isPlaceholder}
               className={revealClass()}
               style={revealStyle(240 + index * 120)}
             />
@@ -139,6 +170,7 @@ export default function ShamalJournalTeaser(props: ShamalJournalTeaserProps) {
 interface TeaserCardProps {
   article: TeaserArticle;
   blogHandle: string;
+  isPlaceholder?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -146,6 +178,7 @@ interface TeaserCardProps {
 function TeaserCard({
   article,
   blogHandle,
+  isPlaceholder,
   className,
   style,
 }: TeaserCardProps) {
@@ -154,22 +187,33 @@ function TeaserCard({
   const image = article.image;
   const excerpt = article.excerpt?.trim();
 
+  const mediaInner = image?.url ? (
+    <img
+      src={image.url}
+      alt={image.altText || article.title}
+      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+    />
+  ) : (
+    <div className="absolute inset-0 bg-gradient-to-br from-shamal-black via-shamal-surface to-shamal-black" />
+  );
+
   return (
     <article className={cn("group flex flex-col", className)} style={style}>
-      <Link
-        to={href}
-        className="relative block aspect-[4/3] overflow-hidden bg-shamal-black"
-      >
-        {image?.url ? (
-          <img
-            src={image.url}
-            alt={image.altText || article.title}
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-shamal-black via-shamal-surface to-shamal-black" />
-        )}
-      </Link>
+      {isPlaceholder ? (
+        <div
+          aria-hidden="true"
+          className="relative block aspect-[4/3] overflow-hidden bg-shamal-black"
+        >
+          {mediaInner}
+        </div>
+      ) : (
+        <Link
+          to={href}
+          className="relative block aspect-[4/3] overflow-hidden bg-shamal-black"
+        >
+          {mediaInner}
+        </Link>
+      )}
       <div className="mt-5 flex flex-col">
         {tag && (
           <span className="text-[10px] font-light tracking-[0.32em] text-shamal-gold uppercase">
@@ -177,12 +221,18 @@ function TeaserCard({
           </span>
         )}
         <h3 className="mt-2 font-cormorant text-xl text-shamal-white md:text-2xl">
-          <Link
-            to={href}
-            className="transition-colors duration-300 hover:text-shamal-gold"
-          >
-            {article.title}
-          </Link>
+          {isPlaceholder ? (
+            <span className="text-shamal-white-dim italic">
+              {article.title}
+            </span>
+          ) : (
+            <Link
+              to={href}
+              className="transition-colors duration-300 hover:text-shamal-gold"
+            >
+              {article.title}
+            </Link>
+          )}
         </h3>
         {excerpt && (
           <p className="mt-2 line-clamp-2 text-sm text-shamal-white-dim leading-relaxed">
