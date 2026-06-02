@@ -53,17 +53,28 @@ export function CartSummary({
     isOptimistic ||
     dcRemoveFetcher.state !== "idle" ||
     gcRemoveFetcher.state !== "idle";
+  const isPage = layout === "page";
   return (
     <div
       className={clsx(
         layout === "drawer" && "grid border-line-subtle border-t pt-4",
-        layout === "page" &&
-          "sticky top-(--height-nav) grid w-full rounded-sm py-4 md:translate-y-4 md:px-6 lg:py-0",
+        isPage && "sticky top-32 grid w-full bg-shamal-surface p-8 md:p-10",
       )}
     >
       <h2 id="summary-heading" className="sr-only">
         Order summary
       </h2>
+      {isPage && (
+        <div className="mb-8 flex flex-col items-start">
+          <span className="text-[10px] font-light tracking-[0.4em] text-shamal-gold uppercase">
+            Order Summary
+          </span>
+          <span
+            aria-hidden="true"
+            className="mt-4 h-px w-12 bg-gradient-to-r from-shamal-gold/55 to-transparent"
+          />
+        </div>
+      )}
       {appliedGiftCards?.length > 0 && (
         <div className="mb-4 flex flex-wrap justify-end gap-2">
           {appliedGiftCards.map((giftCard) => {
@@ -74,7 +85,12 @@ export function CartSummary({
             return (
               <div
                 key={giftCard.id}
-                className="flex items-center justify-center gap-2 rounded-md bg-gray-200 px-2 py-1.5 [&>form]:flex"
+                className={clsx(
+                  "flex items-center justify-center gap-2 px-2 py-1.5 [&>form]:flex",
+                  isPage
+                    ? "border border-shamal-gold/30 text-shamal-white-dim"
+                    : "rounded-md bg-gray-200",
+                )}
               >
                 <GiftIcon className="h-4.5 w-4.5" aria-hidden="true" />
                 <div className="flex items-center gap-1 leading-normal">
@@ -131,7 +147,12 @@ export function CartSummary({
               return (
                 <div
                   key={discount.code}
-                  className="flex items-center justify-center gap-2 rounded-md bg-gray-200 px-2 py-1.5 [&>form]:flex"
+                  className={clsx(
+                    "flex items-center justify-center gap-2 px-2 py-1.5 [&>form]:flex",
+                    isPage
+                      ? "border border-shamal-gold/30 text-shamal-white-dim"
+                      : "rounded-md bg-gray-200",
+                  )}
                 >
                   <TagIcon className="h-4.5 w-4.5" aria-hidden="true" />
                   <span className="leading-normal">{discount.code}</span>
@@ -166,15 +187,34 @@ export function CartSummary({
       <dl className="mb-4 grid">
         <div
           className={clsx(
-            "flex items-center justify-between font-medium",
-            layout === "page" && "text-xl",
+            "flex items-center justify-between",
+            isPage ? "border-shamal-gold/15 border-t pt-6" : "font-medium",
+            layout === "page" ? "" : "",
           )}
         >
-          <dt>Estimated total:</dt>
+          <dt
+            className={clsx(
+              isPage
+                ? "text-[11px] font-light tracking-[0.28em] text-shamal-white-dim uppercase"
+                : "",
+            )}
+          >
+            {isPage ? "Estimated total" : "Estimated total:"}
+          </dt>
           {isCartUpdating ? (
-            <Skeleton className="h-4 w-20 rounded" />
+            <Skeleton
+              className={clsx(
+                "h-4 w-20 rounded",
+                isPage && "bg-shamal-white-dim/15",
+              )}
+            />
           ) : (
-            <dd>
+            <dd
+              className={clsx(
+                isPage &&
+                  "font-cormorant text-3xl text-shamal-gold md:text-4xl",
+              )}
+            >
               {cost?.totalAmount?.amount ? (
                 <Money data={cost?.totalAmount} />
               ) : (
@@ -184,52 +224,108 @@ export function CartSummary({
           )}
         </div>
       </dl>
-      <div className="mb-2 text-right text-body-subtle">
+      <div
+        className={clsx(
+          "mb-2 text-right",
+          isPage ? "text-shamal-white-dim text-xs" : "text-body-subtle",
+        )}
+      >
         Taxes, discounts and{" "}
         <Link
           target="_blank"
           to="/policies/shipping-policy"
           variant="underline"
-          className="text-current after:bg-current"
+          className={clsx(
+            "text-current after:bg-current",
+            isPage && "hover:text-shamal-gold",
+          )}
         >
           shipping
         </Link>{" "}
         calculated at checkout.
       </div>
       {(enableCartNote || enableDiscountCode || enableGiftCard) && (
-        <div className="mb-4 flex items-center justify-end gap-2">
+        <div
+          className={clsx(
+            "mb-4 flex items-center gap-3",
+            isPage
+              ? "mt-6 flex-wrap justify-start text-[11px] font-light tracking-[0.2em] text-shamal-white-dim uppercase"
+              : "justify-end gap-2",
+          )}
+        >
           {enableCartNote && (
             <>
               <Dialog.Root>
                 <Dialog.Trigger asChild>
-                  <Button variant="underline">
-                    {cartNoteButtonText || "Add a note"}
-                  </Button>
+                  {isPage ? (
+                    <button
+                      type="button"
+                      className="transition-colors duration-300 hover:text-shamal-gold"
+                    >
+                      {cartNoteButtonText || "Add a note"}
+                    </button>
+                  ) : (
+                    <Button variant="underline">
+                      {cartNoteButtonText || "Add a note"}
+                    </Button>
+                  )}
                 </Dialog.Trigger>
                 <NoteDialog cartNote={note} />
               </Dialog.Root>
-              {(enableDiscountCode || enableGiftCard) && <span>/</span>}
+              {(enableDiscountCode || enableGiftCard) && (
+                <span
+                  aria-hidden="true"
+                  className={clsx(isPage && "text-shamal-gold/50")}
+                >
+                  ·
+                </span>
+              )}
             </>
           )}
           {enableDiscountCode && (
             <>
               <Dialog.Root>
                 <Dialog.Trigger asChild>
-                  <Button variant="underline">
-                    {discountCodeButtonText || "Add a discount code"}
-                  </Button>
+                  {isPage ? (
+                    <button
+                      type="button"
+                      className="transition-colors duration-300 hover:text-shamal-gold"
+                    >
+                      {discountCodeButtonText || "Add a discount code"}
+                    </button>
+                  ) : (
+                    <Button variant="underline">
+                      {discountCodeButtonText || "Add a discount code"}
+                    </Button>
+                  )}
                 </Dialog.Trigger>
                 <DiscountDialog discountCodes={discountCodes} />
               </Dialog.Root>
-              {enableGiftCard && <span>/</span>}
+              {enableGiftCard && (
+                <span
+                  aria-hidden="true"
+                  className={clsx(isPage && "text-shamal-gold/50")}
+                >
+                  ·
+                </span>
+              )}
             </>
           )}
           {enableGiftCard && (
             <Dialog.Root>
               <Dialog.Trigger asChild>
-                <Button variant="underline">
-                  {giftCardButtonText || "Redeem a gift card"}
-                </Button>
+                {isPage ? (
+                  <button
+                    type="button"
+                    className="transition-colors duration-300 hover:text-shamal-gold"
+                  >
+                    {giftCardButtonText || "Redeem a gift card"}
+                  </button>
+                ) : (
+                  <Button variant="underline">
+                    {giftCardButtonText || "Redeem a gift card"}
+                  </Button>
+                )}
               </Dialog.Trigger>
               <GiftCardDialog appliedGiftCards={appliedGiftCards} />
             </Dialog.Root>
@@ -237,11 +333,17 @@ export function CartSummary({
         </div>
       )}
       {checkoutUrl && (
-        <div className="mt-4 flex flex-col gap-3">
+        <div className={clsx("flex flex-col gap-3", isPage ? "mt-8" : "mt-4")}>
           <a href={checkoutUrl} target="_self">
-            <Button className="w-full">
-              {checkoutButtonText || "Continue to Checkout"}
-            </Button>
+            {isPage ? (
+              <span className="inline-flex w-full items-center justify-center bg-shamal-gold px-10 py-4 text-xs font-medium tracking-[0.28em] text-shamal-black uppercase transition-colors duration-300 hover:bg-shamal-gold/90">
+                {checkoutButtonText || "Continue to Checkout"}
+              </span>
+            ) : (
+              <Button className="w-full">
+                {checkoutButtonText || "Continue to Checkout"}
+              </Button>
+            )}
           </a>
           {/* @todo: <CartShopPayButton cart={cart} /> */}
           {layout === "drawer" && (

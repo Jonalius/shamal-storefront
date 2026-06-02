@@ -6,13 +6,17 @@ import {
   useOptimisticData,
 } from "@shopify/hydrogen";
 import type { CartLineUpdateInput } from "@shopify/hydrogen/storefront-api-types";
+import clsx from "clsx";
 import type { CartApiQueryFragment } from "storefront-api.generated";
+import type { CartLayoutType } from "~/types/others";
 import type { CartLineOptimisticData } from "./cart-line-item";
 
 export function CartLineQuantityAdjust({
   line,
+  layout,
 }: {
   line: OptimisticCart<CartApiQueryFragment>["lines"]["nodes"][0];
+  layout?: CartLayoutType;
 }) {
   const optimisticId = line?.id;
   const optimisticData =
@@ -27,19 +31,30 @@ export function CartLineQuantityAdjust({
   const { id: lineId, isOptimistic } = line;
   const prevQuantity = Number(Math.max(0, optimisticQuantity - 1).toFixed(0));
   const nextQuantity = Number((optimisticQuantity + 1).toFixed(0));
+  const isPage = layout === "page";
 
   return (
     <>
       <label htmlFor={`quantity-${lineId}`} className="sr-only">
         Quantity, {optimisticQuantity}
       </label>
-      <div className="flex min-w-30 items-center justify-evenly border border-line-subtle">
+      <div
+        className={clsx(
+          "flex min-w-30 items-center justify-evenly border",
+          isPage ? "border-shamal-gold/30" : "border-line-subtle",
+        )}
+      >
         <UpdateCartButton lines={[{ id: lineId, quantity: prevQuantity }]}>
           <button
             type="submit"
             name="decrease-quantity"
             aria-label="Decrease quantity"
-            className="inline-flex size-9 items-center justify-center transition disabled:cursor-not-allowed disabled:text-body-subtle"
+            className={clsx(
+              "inline-flex size-9 items-center justify-center transition disabled:cursor-not-allowed",
+              isPage
+                ? "text-shamal-white-dim hover:text-shamal-gold disabled:text-shamal-white-dim/30"
+                : "disabled:text-body-subtle",
+            )}
             value={prevQuantity}
             disabled={optimisticQuantity <= 1 || isOptimistic}
           >
@@ -51,14 +66,25 @@ export function CartLineQuantityAdjust({
           </button>
         </UpdateCartButton>
 
-        <div className="min-w-8 px-2 text-center" data-test="item-quantity">
+        <div
+          className={clsx(
+            "min-w-8 px-2 text-center",
+            isPage && "font-cormorant text-lg text-shamal-white",
+          )}
+          data-test="item-quantity"
+        >
           {optimisticQuantity}
         </div>
 
         <UpdateCartButton lines={[{ id: lineId, quantity: nextQuantity }]}>
           <button
             type="submit"
-            className="inline-flex size-9 items-center justify-center transition disabled:cursor-not-allowed disabled:text-body-subtle"
+            className={clsx(
+              "inline-flex size-9 items-center justify-center transition disabled:cursor-not-allowed",
+              isPage
+                ? "text-shamal-white-dim hover:text-shamal-gold disabled:text-shamal-white-dim/30"
+                : "disabled:text-body-subtle",
+            )}
             name="increase-quantity"
             value={nextQuantity}
             aria-label="Increase quantity"

@@ -110,7 +110,8 @@ export const Layout = withWeaverse(function Layout({
     localePath === "/" ||
     localePath.startsWith("/collections/") ||
     localePath.startsWith("/products/") ||
-    localePath.startsWith("/blogs/");
+    localePath.startsWith("/blogs/") ||
+    localePath.startsWith("/cart");
 
   // Bypass Weaverse theme layout for Hydrogen dev tools
   // See: https://github.com/Weaverse/pilot/issues/321

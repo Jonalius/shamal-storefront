@@ -69,22 +69,23 @@ export function CartLineItem({
     isDefaultVariant = name === "Title" && value === "Default Title";
   }
 
+  const isPage = layout === "page";
   return (
     <li
-      className="flex gap-4"
+      className={clsx("flex gap-4", isPage && "py-6 md:gap-8 md:py-8")}
       style={{
         // Hide the line item if the optimistic data action is remove
         // Do not remove the form from the DOM
         display: optimisticData?.action === "remove" ? "none" : "flex",
       }}
     >
-      <div className="relative shrink-0">
+      <div className={clsx("relative shrink-0", isPage && "bg-shamal-surface")}>
         {image && (
           <Image
             width={250}
             height={250}
             data={image}
-            className="h-auto w-24"
+            className={clsx("h-auto", isPage ? "w-28 md:w-32" : "w-24")}
             alt={title}
             aspectRatio={calculateAspectRatio(image, "adapt")}
           />
@@ -93,21 +94,43 @@ export function CartLineItem({
       <div className="flex grow flex-col gap-3">
         <div className="flex justify-between gap-4">
           <div>
-            <div>
+            <div
+              className={clsx(
+                isPage &&
+                  "font-cormorant text-2xl text-shamal-white md:text-3xl",
+              )}
+            >
               {product?.handle ? (
                 <Link
                   to={url}
-                  className="inline-block"
+                  className={clsx(
+                    "inline-block",
+                    isPage &&
+                      "transition-colors duration-300 hover:text-shamal-gold",
+                  )}
                   onClick={closeCartDrawer}
                 >
-                  <RevealUnderline>{product?.title || ""}</RevealUnderline>
+                  {isPage ? (
+                    product?.title || ""
+                  ) : (
+                    <RevealUnderline>{product?.title || ""}</RevealUnderline>
+                  )}
                 </Link>
               ) : (
                 <p>{product?.title || ""}</p>
               )}
             </div>
             {!isDefaultVariant && (
-              <div className="space-y-0.5 text-gray-500 text-sm">{title}</div>
+              <div
+                className={clsx(
+                  "space-y-0.5 text-sm",
+                  isPage
+                    ? "mt-2 text-[11px] tracking-[0.2em] text-shamal-white-dim uppercase"
+                    : "text-gray-500",
+                )}
+              >
+                {title}
+              </div>
             )}
           </div>
           {layout === "drawer" && (
@@ -118,11 +141,20 @@ export function CartLineItem({
           className={clsx(
             "flex items-center gap-2",
             layout === "drawer" && "justify-between",
+            isPage && "mt-2 justify-between",
           )}
         >
-          <CartLineQuantityAdjust line={line} />
-          {layout === "page" && <ItemRemoveButton lineId={id} />}
-          <CartLinePrice line={line} isOptimistic={isOptimistic} />
+          <div className="flex items-center gap-4">
+            <CartLineQuantityAdjust line={line} layout={layout} />
+            {layout === "page" && (
+              <ItemRemoveButton lineId={id} layout="page" />
+            )}
+          </div>
+          <CartLinePrice
+            line={line}
+            isOptimistic={isOptimistic}
+            layout={layout}
+          />
         </div>
       </div>
     </li>
@@ -131,27 +163,42 @@ export function CartLineItem({
 
 function ItemRemoveButton({
   lineId,
+  layout,
   className,
 }: {
   lineId: CartLine["id"];
+  layout?: CartLayoutType;
   className?: string;
 }) {
+  const isPage = layout === "page";
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{ lineIds: [lineId] }}
     >
-      <button
-        className={clsx(
-          "flex h-8 w-8 items-center justify-center border-none",
-          className,
-        )}
-        type="submit"
-      >
-        <span className="sr-only">Remove</span>
-        <TrashIcon aria-hidden="true" className="size-4.5" />
-      </button>
+      {isPage ? (
+        <button
+          className={clsx(
+            "text-[11px] font-light tracking-[0.28em] text-shamal-white-dim uppercase transition-colors duration-300 hover:text-shamal-gold",
+            className,
+          )}
+          type="submit"
+        >
+          Remove
+        </button>
+      ) : (
+        <button
+          className={clsx(
+            "flex h-8 w-8 items-center justify-center border-none",
+            className,
+          )}
+          type="submit"
+        >
+          <span className="sr-only">Remove</span>
+          <TrashIcon aria-hidden="true" className="size-4.5" />
+        </button>
+      )}
       <OptimisticInput id={lineId} data={{ action: "remove" }} />
     </CartForm>
   );
@@ -161,10 +208,12 @@ function CartLinePrice({
   line,
   priceType = "regular",
   isOptimistic,
+  layout,
 }: {
   line: CartLine;
   priceType?: "regular" | "compareAt";
   isOptimistic?: boolean;
+  layout?: CartLayoutType;
 }) {
   if (!(line?.cost?.amountPerQuantity && line?.cost?.totalAmount)) {
     return null;
@@ -179,10 +228,28 @@ function CartLinePrice({
     return null;
   }
 
+  const isPage = layout === "page";
+
   if (isOptimistic) {
-    return <Skeleton as="span" className="ml-auto h-4 w-16 rounded" />;
+    return (
+      <Skeleton
+        as="span"
+        className={clsx(
+          "ml-auto h-4 w-16 rounded",
+          isPage && "bg-shamal-white-dim/15",
+        )}
+      />
+    );
   }
   return (
-    <Money withoutTrailingZeros as="span" data={moneyV2} className="ml-auto" />
+    <Money
+      withoutTrailingZeros
+      as="span"
+      data={moneyV2}
+      className={clsx(
+        "ml-auto",
+        isPage && "font-cormorant text-xl text-shamal-white md:text-2xl",
+      )}
+    />
   );
 }

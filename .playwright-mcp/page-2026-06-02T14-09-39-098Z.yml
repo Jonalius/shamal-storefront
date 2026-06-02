@@ -1,0 +1,46 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#mainContent"
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Shamal" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Shamal" [ref=e7]
+      - generic [ref=e8]:
+        - link "Our Story" [ref=e9] [cursor=pointer]:
+          - /url: /#story
+        - link "Nordic Seasons" [ref=e10] [cursor=pointer]:
+          - /url: /#voyages
+        - link "The Journal" [ref=e11] [cursor=pointer]:
+          - /url: /#journal
+        - link "Shop" [ref=e12] [cursor=pointer]:
+          - /url: /#shop
+      - button "Open cart" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+  - main [ref=e16]:
+    - generic [ref=e17]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]: Your Selection
+          - generic [ref=e24]: ◆
+          - heading "Cart" [level=1] [ref=e26]
+        - generic [ref=e27]:
+          - generic [ref=e28]:
+            - paragraph [ref=e29]: Your cart is empty.
+            - link "Discover Nordic Seasons" [ref=e30] [cursor=pointer]:
+              - /url: /collections/perfumes
+              - generic [ref=e31]: Discover Nordic Seasons
+              - generic [ref=e32]: →
+          - list [ref=e38]
+      - generic [ref=e40]:
+        - paragraph [ref=e41]: © 2026 Shamal. All rights reserved.
+        - list [ref=e42]:
+          - listitem [ref=e43]:
+            - link "Shipping" [ref=e44] [cursor=pointer]:
+              - /url: /policies/shipping-policy
+          - listitem [ref=e45]:
+            - link "Privacy" [ref=e46] [cursor=pointer]:
+              - /url: /policies/privacy-policy
+          - listitem [ref=e47]:
+            - link "Terms" [ref=e48] [cursor=pointer]:
+              - /url: /policies/terms-of-service
