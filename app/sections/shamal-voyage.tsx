@@ -23,6 +23,7 @@ interface ShamalVoyageProps extends HydrogenComponentProps {
   ctaText: string;
   ctaLink: string;
   waitingCount: string;
+  waitingNoun: string;
   showSocialProof: boolean;
 }
 
@@ -43,6 +44,7 @@ export default function ShamalVoyage(props: ShamalVoyageProps) {
     ctaText,
     ctaLink,
     waitingCount,
+    waitingNoun,
     showSocialProof,
     ...rest
   } = props;
@@ -212,7 +214,8 @@ export default function ShamalVoyage(props: ShamalVoyageProps) {
               style={revealStyle(840)}
             >
               <span className="mr-2 text-shamal-gold">★</span>
-              {waitingCount} people are waiting for this voyage
+              {waitingCount} people are waiting for this{" "}
+              {waitingNoun || "perfume"}
             </p>
           )}
         </div>
@@ -396,6 +399,14 @@ export const schema = createSchema({
           name: "waitingCount",
           label: "Waiting count",
           defaultValue: "312",
+        },
+        {
+          type: "text",
+          name: "waitingNoun",
+          label: "Product noun",
+          helpText:
+            "Singular noun used in the waiting-count line — e.g. perfume, candle, soap, room scent.",
+          defaultValue: "perfume",
         },
         {
           type: "switch",
