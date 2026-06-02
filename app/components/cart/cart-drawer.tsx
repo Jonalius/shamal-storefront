@@ -68,7 +68,7 @@ export function CartDrawer() {
       <Dialog.Portal>
         <Dialog.Overlay
           className={clsx(
-            "fixed inset-0 z-10 bg-black/50",
+            "fixed inset-0 z-10 bg-shamal-black/70",
             "data-[state=open]:animate-[fade-in_150ms_ease-out]",
             "data-[state=closed]:animate-[fade-out_150ms_ease-in]",
           )}
@@ -76,19 +76,27 @@ export function CartDrawer() {
         <Dialog.Content
           onCloseAutoFocus={(e) => e.preventDefault()}
           className={clsx(
-            "fixed inset-y-0 right-0 z-10 w-screen max-w-120 bg-background py-4",
+            "fixed inset-y-0 right-0 z-10 w-screen max-w-120 bg-shamal-black py-6 text-shamal-white",
+            "border-shamal-gold/15 border-l",
             "data-[state=open]:animate-[enter-from-right_200ms_ease-out]",
             "data-[state=closed]:animate-[exit-to-right_200ms_ease-in]",
           )}
           aria-describedby={undefined}
         >
           <div className="flex h-full flex-col space-y-6">
-            <div className="flex items-center justify-between gap-2 px-4">
-              <Dialog.Title asChild className="text-base">
-                <span className="font-bold">
+            <div className="flex items-center justify-between gap-2 px-6">
+              <Dialog.Title asChild>
+                <span className="font-cormorant text-3xl text-shamal-white">
                   <Suspense fallback={<>Cart</>}>
                     <Await resolve={rootData?.cart} errorElement={<>Cart</>}>
-                      {(cart) => <>Cart ({cart?.totalQuantity || 0})</>}
+                      {(cart) => (
+                        <>
+                          Cart
+                          <span className="ml-2 text-xl text-shamal-white-dim italic">
+                            ({cart?.totalQuantity || 0})
+                          </span>
+                        </>
+                      )}
                     </Await>
                   </Suspense>
                 </span>
@@ -96,7 +104,7 @@ export function CartDrawer() {
               <Dialog.Close asChild>
                 <button
                   type="button"
-                  className="translate-x-2 p-2"
+                  className="translate-x-2 p-2 text-shamal-white-dim transition-colors duration-300 hover:text-shamal-gold"
                   aria-label="Close cart drawer"
                 >
                   <XIcon className="h-4 w-4" />

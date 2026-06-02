@@ -10,7 +10,6 @@ import clsx from "clsx";
 import type { CartApiQueryFragment } from "storefront-api.generated";
 import { Image } from "~/components/image";
 import { Link } from "~/components/link";
-import { RevealUnderline } from "~/components/reveal-underline";
 import { Skeleton } from "~/components/skeleton";
 import type { CartLayoutType } from "~/types/others";
 import { calculateAspectRatio } from "~/utils/image";
@@ -72,20 +71,20 @@ export function CartLineItem({
   const isPage = layout === "page";
   return (
     <li
-      className={clsx("flex gap-4", isPage && "py-6 md:gap-8 md:py-8")}
+      className={clsx("flex gap-4", isPage ? "py-6 md:gap-8 md:py-8" : "py-5")}
       style={{
         // Hide the line item if the optimistic data action is remove
         // Do not remove the form from the DOM
         display: optimisticData?.action === "remove" ? "none" : "flex",
       }}
     >
-      <div className={clsx("relative shrink-0", isPage && "bg-shamal-surface")}>
+      <div className="relative shrink-0 bg-shamal-surface">
         {image && (
           <Image
             width={250}
             height={250}
             data={image}
-            className={clsx("h-auto", isPage ? "w-28 md:w-32" : "w-24")}
+            className={clsx("h-auto", isPage ? "w-28 md:w-32" : "w-20")}
             alt={title}
             aspectRatio={calculateAspectRatio(image, "adapt")}
           />
@@ -96,54 +95,33 @@ export function CartLineItem({
           <div>
             <div
               className={clsx(
-                isPage &&
-                  "font-cormorant text-2xl text-shamal-white md:text-3xl",
+                "font-cormorant text-shamal-white",
+                isPage ? "text-2xl md:text-3xl" : "text-xl",
               )}
             >
               {product?.handle ? (
                 <Link
                   to={url}
-                  className={clsx(
-                    "inline-block",
-                    isPage &&
-                      "transition-colors duration-300 hover:text-shamal-gold",
-                  )}
+                  className="inline-block transition-colors duration-300 hover:text-shamal-gold"
                   onClick={closeCartDrawer}
                 >
-                  {isPage ? (
-                    product?.title || ""
-                  ) : (
-                    <RevealUnderline>{product?.title || ""}</RevealUnderline>
-                  )}
+                  {product?.title || ""}
                 </Link>
               ) : (
                 <p>{product?.title || ""}</p>
               )}
             </div>
             {!isDefaultVariant && (
-              <div
-                className={clsx(
-                  "space-y-0.5 text-sm",
-                  isPage
-                    ? "mt-2 text-[11px] tracking-[0.2em] text-shamal-white-dim uppercase"
-                    : "text-gray-500",
-                )}
-              >
+              <div className="mt-2 space-y-0.5 text-[11px] tracking-[0.2em] text-shamal-white-dim uppercase">
                 {title}
               </div>
             )}
           </div>
           {layout === "drawer" && (
-            <ItemRemoveButton lineId={id} className="-mt-1.5 -mr-2" />
+            <ItemRemoveButton lineId={id} className="-mt-1 -mr-1" />
           )}
         </div>
-        <div
-          className={clsx(
-            "flex items-center gap-2",
-            layout === "drawer" && "justify-between",
-            isPage && "mt-2 justify-between",
-          )}
-        >
+        <div className="mt-2 flex items-center justify-between gap-2">
           <div className="flex items-center gap-4">
             <CartLineQuantityAdjust line={line} layout={layout} />
             {layout === "page" && (
@@ -190,7 +168,7 @@ function ItemRemoveButton({
       ) : (
         <button
           className={clsx(
-            "flex h-8 w-8 items-center justify-center border-none",
+            "flex h-8 w-8 items-center justify-center border-none text-shamal-white-dim transition-colors duration-300 hover:text-shamal-gold",
             className,
           )}
           type="submit"
@@ -234,10 +212,7 @@ function CartLinePrice({
     return (
       <Skeleton
         as="span"
-        className={clsx(
-          "ml-auto h-4 w-16 rounded",
-          isPage && "bg-shamal-white-dim/15",
-        )}
+        className="ml-auto h-4 w-16 rounded bg-shamal-white-dim/15"
       />
     );
   }
@@ -247,8 +222,8 @@ function CartLinePrice({
       as="span"
       data={moneyV2}
       className={clsx(
-        "ml-auto",
-        isPage && "font-cormorant text-xl text-shamal-white md:text-2xl",
+        "ml-auto font-cormorant text-shamal-white",
+        isPage ? "text-xl md:text-2xl" : "text-lg",
       )}
     />
   );

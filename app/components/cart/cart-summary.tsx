@@ -4,9 +4,8 @@ import { CartForm, Money, type OptimisticCart } from "@shopify/hydrogen";
 import { useThemeSettings } from "@weaverse/hydrogen";
 import clsx from "clsx";
 import { useState } from "react";
-import { useFetcher } from "react-router";
+import { Link as RouterLink, useFetcher } from "react-router";
 import type { CartApiQueryFragment } from "storefront-api.generated";
-import { Button } from "~/components/button";
 import { Link } from "~/components/link";
 import { Skeleton } from "~/components/skeleton";
 import { Spinner } from "~/components/spinner";
@@ -57,8 +56,10 @@ export function CartSummary({
   return (
     <div
       className={clsx(
-        layout === "drawer" && "grid border-line-subtle border-t pt-4",
-        isPage && "sticky top-32 grid w-full bg-shamal-surface p-8 md:p-10",
+        "grid w-full",
+        isPage
+          ? "sticky top-32 bg-shamal-surface p-8 md:p-10"
+          : "border-shamal-gold/15 border-t bg-shamal-black px-6 py-6",
       )}
     >
       <h2 id="summary-heading" className="sr-only">
@@ -85,12 +86,7 @@ export function CartSummary({
             return (
               <div
                 key={giftCard.id}
-                className={clsx(
-                  "flex items-center justify-center gap-2 px-2 py-1.5 [&>form]:flex",
-                  isPage
-                    ? "border border-shamal-gold/30 text-shamal-white-dim"
-                    : "rounded-md bg-gray-200",
-                )}
+                className="flex items-center justify-center gap-2 border border-shamal-gold/30 px-2 py-1.5 text-shamal-white-dim text-xs [&>form]:flex"
               >
                 <GiftIcon className="h-4.5 w-4.5" aria-hidden="true" />
                 <div className="flex items-center gap-1 leading-normal">
@@ -109,7 +105,7 @@ export function CartSummary({
                 >
                   <button
                     type="submit"
-                    className="relative ml-1 size-4 transition-colors hover:text-red-600"
+                    className="relative ml-1 size-4 text-shamal-white-dim transition-colors hover:text-shamal-gold"
                     aria-label={`Remove gift card code ${giftCard.id}`}
                     onClick={() => setRemovingGiftCard(giftCard.lastCharacters)}
                   >
@@ -147,12 +143,7 @@ export function CartSummary({
               return (
                 <div
                   key={discount.code}
-                  className={clsx(
-                    "flex items-center justify-center gap-2 px-2 py-1.5 [&>form]:flex",
-                    isPage
-                      ? "border border-shamal-gold/30 text-shamal-white-dim"
-                      : "rounded-md bg-gray-200",
-                  )}
+                  className="flex items-center justify-center gap-2 border border-shamal-gold/30 px-2 py-1.5 text-shamal-white-dim text-xs [&>form]:flex"
                 >
                   <TagIcon className="h-4.5 w-4.5" aria-hidden="true" />
                   <span className="leading-normal">{discount.code}</span>
@@ -164,7 +155,7 @@ export function CartSummary({
                   >
                     <button
                       type="submit"
-                      className="relative ml-1 size-4 transition-colors hover:text-red-600"
+                      className="relative ml-1 size-4 text-shamal-white-dim transition-colors hover:text-shamal-gold"
                       aria-label={`Remove discount code ${discount.code}`}
                       onClick={() => setRemovingDiscountCode(discount.code)}
                     >
@@ -188,31 +179,19 @@ export function CartSummary({
         <div
           className={clsx(
             "flex items-center justify-between",
-            isPage ? "border-shamal-gold/15 border-t pt-6" : "font-medium",
-            layout === "page" ? "" : "",
+            isPage && "border-shamal-gold/15 border-t pt-6",
           )}
         >
-          <dt
-            className={clsx(
-              isPage
-                ? "text-[11px] font-light tracking-[0.28em] text-shamal-white-dim uppercase"
-                : "",
-            )}
-          >
-            {isPage ? "Estimated total" : "Estimated total:"}
+          <dt className="text-[11px] font-light tracking-[0.28em] text-shamal-white-dim uppercase">
+            Estimated total
           </dt>
           {isCartUpdating ? (
-            <Skeleton
-              className={clsx(
-                "h-4 w-20 rounded",
-                isPage && "bg-shamal-white-dim/15",
-              )}
-            />
+            <Skeleton className="h-4 w-20 rounded bg-shamal-white-dim/15" />
           ) : (
             <dd
               className={clsx(
-                isPage &&
-                  "font-cormorant text-3xl text-shamal-gold md:text-4xl",
+                "font-cormorant text-shamal-gold",
+                isPage ? "text-3xl md:text-4xl" : "text-2xl",
               )}
             >
               {cost?.totalAmount?.amount ? (
@@ -224,59 +203,35 @@ export function CartSummary({
           )}
         </div>
       </dl>
-      <div
-        className={clsx(
-          "mb-2 text-right",
-          isPage ? "text-shamal-white-dim text-xs" : "text-body-subtle",
-        )}
-      >
+      <div className="mb-2 text-right text-shamal-white-dim text-xs">
         Taxes, discounts and{" "}
         <Link
           target="_blank"
           to="/policies/shipping-policy"
           variant="underline"
-          className={clsx(
-            "text-current after:bg-current",
-            isPage && "hover:text-shamal-gold",
-          )}
+          className="text-current after:bg-current hover:text-shamal-gold"
         >
           shipping
         </Link>{" "}
         calculated at checkout.
       </div>
       {(enableCartNote || enableDiscountCode || enableGiftCard) && (
-        <div
-          className={clsx(
-            "mb-4 flex items-center gap-3",
-            isPage
-              ? "mt-6 flex-wrap justify-start text-[11px] font-light tracking-[0.2em] text-shamal-white-dim uppercase"
-              : "justify-end gap-2",
-          )}
-        >
+        <div className="mt-4 mb-4 flex flex-wrap items-center justify-start gap-3 text-[11px] font-light tracking-[0.2em] text-shamal-white-dim uppercase">
           {enableCartNote && (
             <>
               <Dialog.Root>
                 <Dialog.Trigger asChild>
-                  {isPage ? (
-                    <button
-                      type="button"
-                      className="transition-colors duration-300 hover:text-shamal-gold"
-                    >
-                      {cartNoteButtonText || "Add a note"}
-                    </button>
-                  ) : (
-                    <Button variant="underline">
-                      {cartNoteButtonText || "Add a note"}
-                    </Button>
-                  )}
+                  <button
+                    type="button"
+                    className="transition-colors duration-300 hover:text-shamal-gold"
+                  >
+                    {cartNoteButtonText || "Add a note"}
+                  </button>
                 </Dialog.Trigger>
                 <NoteDialog cartNote={note} />
               </Dialog.Root>
               {(enableDiscountCode || enableGiftCard) && (
-                <span
-                  aria-hidden="true"
-                  className={clsx(isPage && "text-shamal-gold/50")}
-                >
+                <span aria-hidden="true" className="text-shamal-gold/50">
                   ·
                 </span>
               )}
@@ -286,26 +241,17 @@ export function CartSummary({
             <>
               <Dialog.Root>
                 <Dialog.Trigger asChild>
-                  {isPage ? (
-                    <button
-                      type="button"
-                      className="transition-colors duration-300 hover:text-shamal-gold"
-                    >
-                      {discountCodeButtonText || "Add a discount code"}
-                    </button>
-                  ) : (
-                    <Button variant="underline">
-                      {discountCodeButtonText || "Add a discount code"}
-                    </Button>
-                  )}
+                  <button
+                    type="button"
+                    className="transition-colors duration-300 hover:text-shamal-gold"
+                  >
+                    {discountCodeButtonText || "Add a discount code"}
+                  </button>
                 </Dialog.Trigger>
                 <DiscountDialog discountCodes={discountCodes} />
               </Dialog.Root>
               {enableGiftCard && (
-                <span
-                  aria-hidden="true"
-                  className={clsx(isPage && "text-shamal-gold/50")}
-                >
+                <span aria-hidden="true" className="text-shamal-gold/50">
                   ·
                 </span>
               )}
@@ -314,18 +260,12 @@ export function CartSummary({
           {enableGiftCard && (
             <Dialog.Root>
               <Dialog.Trigger asChild>
-                {isPage ? (
-                  <button
-                    type="button"
-                    className="transition-colors duration-300 hover:text-shamal-gold"
-                  >
-                    {giftCardButtonText || "Redeem a gift card"}
-                  </button>
-                ) : (
-                  <Button variant="underline">
-                    {giftCardButtonText || "Redeem a gift card"}
-                  </Button>
-                )}
+                <button
+                  type="button"
+                  className="transition-colors duration-300 hover:text-shamal-gold"
+                >
+                  {giftCardButtonText || "Redeem a gift card"}
+                </button>
               </Dialog.Trigger>
               <GiftCardDialog appliedGiftCards={appliedGiftCards} />
             </Dialog.Root>
@@ -335,21 +275,17 @@ export function CartSummary({
       {checkoutUrl && (
         <div className={clsx("flex flex-col gap-3", isPage ? "mt-8" : "mt-4")}>
           <a href={checkoutUrl} target="_self">
-            {isPage ? (
-              <span className="inline-flex w-full items-center justify-center bg-shamal-gold px-10 py-4 text-xs font-medium tracking-[0.28em] text-shamal-black uppercase transition-colors duration-300 hover:bg-shamal-gold/90">
-                {checkoutButtonText || "Continue to Checkout"}
-              </span>
-            ) : (
-              <Button className="w-full">
-                {checkoutButtonText || "Continue to Checkout"}
-              </Button>
-            )}
+            <span className="inline-flex w-full items-center justify-center bg-shamal-gold px-10 py-4 text-xs font-medium tracking-[0.28em] text-shamal-black uppercase transition-colors duration-300 hover:bg-shamal-gold/90">
+              {checkoutButtonText || "Continue to Checkout"}
+            </span>
           </a>
-          {/* @todo: <CartShopPayButton cart={cart} /> */}
           {layout === "drawer" && (
-            <Link variant="underline" to="/cart" className="mx-auto w-fit">
+            <RouterLink
+              to="/cart"
+              className="mx-auto w-fit text-[11px] font-light tracking-[0.28em] text-shamal-white-dim uppercase transition-colors duration-300 hover:text-shamal-gold"
+            >
               View cart
-            </Link>
+            </RouterLink>
           )}
         </div>
       )}

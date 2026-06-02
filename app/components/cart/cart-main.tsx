@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { Link as RouterLink } from "react-router";
 import useScroll from "react-use/esm/useScroll";
 import type { CartApiQueryFragment } from "storefront-api.generated";
-import { Link } from "~/components/link";
 import { ScrollArea } from "~/components/scroll-area";
 import type { CartLayoutType } from "~/types/others";
 import { CartLineItem } from "./cart-line-item";
@@ -20,7 +19,6 @@ function CartEmpty({
   onClose?: () => void;
 }) {
   const scrollRef = useRef(null);
-  const { y } = useScroll(scrollRef);
 
   if (layout === "page") {
     return (
@@ -49,26 +47,23 @@ function CartEmpty({
   return (
     <div
       ref={scrollRef}
-      className={clsx(
-        "flex h-screen-dynamic flex-col content-start justify-center space-y-12 overflow-y-scroll px-5 pb-5 text-center transition",
-        y > 0 && "border-t",
-      )}
+      className="flex h-screen-dynamic flex-col content-start justify-center gap-6 overflow-y-scroll px-6 pb-6 text-center"
       hidden={hidden}
     >
-      <div>
-        <p className="mb-4">
-          Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-          started!
-        </p>
-        <Link
-          variant="outline"
-          to="/products"
-          className="w-full justify-center"
-          onClick={onClose}
-        >
-          Start Shopping
-        </Link>
-      </div>
+      <p className="font-cormorant text-2xl text-shamal-white-dim italic">
+        Your cart is empty.
+      </p>
+      <RouterLink
+        to="/collections/perfumes"
+        onClick={onClose}
+        className="group/cta inline-flex items-center justify-center gap-2 text-[11px] font-light tracking-[0.28em] text-shamal-gold uppercase"
+      >
+        <span className="relative">
+          Discover Nordic Seasons
+          <span className="-bottom-1 absolute right-0 left-0 h-px origin-left scale-x-0 bg-shamal-gold transition-transform duration-300 ease-out group-hover/cta:scale-x-100" />
+        </span>
+        <span aria-hidden="true">→</span>
+      </RouterLink>
     </div>
   );
 }
@@ -94,7 +89,7 @@ export function CartMain({
       <div
         className={clsx(
           layout === "drawer" &&
-            "grid grow grid-cols-1 grid-rows-[1fr_auto] px-4",
+            "grid grow grid-cols-1 grid-rows-[1fr_auto] px-6",
           layout === "page" && [
             "w-full",
             linesCount &&
@@ -106,8 +101,8 @@ export function CartMain({
           ref={scrollRef}
           className={clsx([
             layout === "page" && linesCount && "pb-4",
-            layout === "drawer" && "-mx-4 pb-4 transition",
-            layout === "drawer" && y > 0 && "border-line-subtle border-t",
+            layout === "drawer" && "-mx-6 pb-4 transition",
+            layout === "drawer" && y > 0 && "border-shamal-gold/15 border-t",
           ])}
         >
           <ScrollArea
@@ -116,10 +111,8 @@ export function CartMain({
           >
             <ul
               className={clsx(
-                "grid",
-                layout === "page" &&
-                  "divide-y divide-shamal-gold/15 border-shamal-gold/15 border-y",
-                layout === "drawer" && "gap-5 px-4",
+                "grid divide-y divide-shamal-gold/15 border-shamal-gold/15 border-y",
+                layout === "drawer" && "px-6",
               )}
             >
               {(cart?.lines?.nodes ?? []).map((line) => (
