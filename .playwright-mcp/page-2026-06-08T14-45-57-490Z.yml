@@ -1,0 +1,18 @@
+- generic [ref=e3]:
+  - region "top of page"
+  - generic [ref=e10]:
+    - banner [ref=e11]:
+      - img "SHAMAL HIGH RES WHITE.png" [ref=e20]
+    - main [ref=e21]:
+      - generic [ref=e27]:
+        - generic:
+          - generic:
+            - paragraph [ref=e33]:
+              - generic [ref=e37]: OUR HOME PAGE IS CURRENTLY UNDER RECONSTRUCTION
+            - link "INSTAGRAM" [ref=e39] [cursor=pointer]:
+              - /url: https://www.instagram.com/shamalorigin/
+              - generic [ref=e41]: INSTAGRAM
+            - paragraph [ref=e42]: WZ4h&>TZQb6*2eE*
+            - img [ref=e45]
+    - contentinfo [ref=e57]
+  - region "bottom of page"
