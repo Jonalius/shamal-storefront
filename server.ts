@@ -32,7 +32,13 @@ export default {
       const response = await handleRequest(request);
 
       if (hydrogenContext.session.isPending) {
-        response.headers.set(
+        // Append (not set) so we don't clobber other Set-Cookie headers on the
+        // response — most importantly the cart-id cookie written by the cart
+        // action via cart.setCartId(). Using `.set` here overwrote that cookie
+        // whenever the session was pending (logged-in customer, buyer identity,
+        // or an access-token refresh), so a freshly-created cart id never
+        // reached the browser and the cart appeared to stay empty.
+        response.headers.append(
           "Set-Cookie",
           await hydrogenContext.session.commit(),
         );

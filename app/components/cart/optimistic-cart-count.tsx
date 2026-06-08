@@ -6,7 +6,7 @@ import { type CartReturn, useOptimisticCart } from "@shopify/hydrogen";
  * resolved `totalQuantity` — means the count reflects in-flight add/remove/update
  * submissions immediately. In particular the first add to a previously-empty
  * cart shows 1 right away instead of briefly showing 0 until the server
- * round-trip lands. Render this inside an <Await> that resolves `rootData.cart`.
+ * round-trip lands. Pass the resolved `rootData.cart` (critical data).
  */
 export function OptimisticCartCount({
   cart,
