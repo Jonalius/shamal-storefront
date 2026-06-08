@@ -4,9 +4,13 @@ import {
 } from "@shopify/hydrogen";
 import { isbot } from "isbot";
 import { renderToReadableStream } from "react-dom/server";
-import type { EntryContext } from "react-router";
+import type {
+  ActionFunctionArgs,
+  EntryContext,
+  LoaderFunctionArgs,
+} from "react-router";
 import { ServerRouter } from "react-router";
-
+import { logErrorSync } from "~/utils/serialize-error";
 import { getWeaverseCsp } from "~/weaverse/csp";
 
 export default async function handleRequest(
@@ -37,7 +41,12 @@ export default async function handleRequest(
       nonce,
       signal: request.signal,
       onError(error) {
-        console.error(error);
+        // DIAGNOSTIC: deep-log SSR render errors (was a bare console.error that
+        // Oxygen masked as `{ name: 'Error', message: '' }`).
+        logErrorSync(
+          `ssr render onError (${new URL(request.url).pathname})`,
+          error,
+        );
         responseStatusCode = 500;
       },
     },
@@ -58,4 +67,20 @@ export default async function handleRequest(
     headers: responseHeaders,
     status: responseStatusCode,
   });
+}
+
+// DIAGNOSTIC: React Router calls handleError for every uncaught error thrown by
+// a loader, action, or data request (including Weaverse loaders) — the catch-all
+// that our cart-route try/catch missed. Remove with spec
+// .weaverse/specs/2026-06-08--cart-500-diagnosis.
+export function handleError(
+  error: unknown,
+  { request }: LoaderFunctionArgs | ActionFunctionArgs,
+) {
+  // Don't log client-aborted requests as errors.
+  if (request.signal.aborted) return;
+  logErrorSync(
+    `handleError (${request.method} ${new URL(request.url).pathname})`,
+    error,
+  );
 }
