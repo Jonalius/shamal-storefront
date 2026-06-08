@@ -68,8 +68,6 @@ export default function SingleProduct(props: SingleProductProps) {
   let atcText = "Add to Cart";
   if (selectedVariant?.availableForSale) {
     atcText = isBundle ? "Add bundle to cart" : "Add to Cart";
-  } else if (selectedVariant?.quantityAvailable === -1) {
-    atcText = "Unavailable";
   } else {
     atcText = "Sold Out";
   }

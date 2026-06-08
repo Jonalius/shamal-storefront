@@ -1,6 +1,6 @@
 # Cart `/cart.data` 500 — production diagnosis
 
-- **Status:** In progress (diagnostic logging deployed, awaiting prod logs)
+- **Status:** Resolved (fix applied + verified locally; awaiting prod deploy)
 - **Owner:** Jonathan Rahm
 - **Created:** 2026-06-08
 

@@ -18,7 +18,6 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 import { CartMain } from "~/components/cart/cart-main";
-import { logError } from "~/utils/serialize-error";
 
 export async function action({ request, context }: ActionFunctionArgs) {
   const { cart } = context;
@@ -30,62 +29,57 @@ export async function action({ request, context }: ActionFunctionArgs) {
   const status = 200;
   let result: CartQueryDataReturn;
 
-  try {
-    switch (cartFormAction) {
-      case CartForm.ACTIONS.LinesAdd:
-        result = await cart.addLines(inputs.lines as CartLineInput[]);
-        break;
-      case CartForm.ACTIONS.LinesUpdate:
-        result = await cart.updateLines(inputs.lines as CartLineUpdateInput[]);
-        break;
-      case CartForm.ACTIONS.LinesRemove:
-        result = await cart.removeLines(inputs.lineIds as string[]);
-        break;
-      case CartForm.ACTIONS.NoteUpdate: {
-        const cartNote = inputs.cartNote as string;
-        if (cartNote) {
-          result = await cart.updateNote(cartNote);
-        }
-        break;
+  switch (cartFormAction) {
+    case CartForm.ACTIONS.LinesAdd:
+      result = await cart.addLines(inputs.lines as CartLineInput[]);
+      break;
+    case CartForm.ACTIONS.LinesUpdate:
+      result = await cart.updateLines(inputs.lines as CartLineUpdateInput[]);
+      break;
+    case CartForm.ACTIONS.LinesRemove:
+      result = await cart.removeLines(inputs.lineIds as string[]);
+      break;
+    case CartForm.ACTIONS.NoteUpdate: {
+      const cartNote = inputs.cartNote as string;
+      if (cartNote) {
+        result = await cart.updateNote(cartNote);
       }
-      case CartForm.ACTIONS.DiscountCodesUpdate: {
-        const formDiscountCode = inputs.discountCode;
-        const discountCodes = (
-          formDiscountCode ? [formDiscountCode] : []
-        ) as string[];
-        discountCodes.push(...(inputs.discountCodes as string[]));
-        result = await cart.updateDiscountCodes(discountCodes);
-        break;
-      }
-      case CartForm.ACTIONS.GiftCardCodesAdd: {
-        const giftCardCodes = (inputs.giftCardCodes as string[]) || [];
-        result = await cart.addGiftCardCodes(giftCardCodes);
-        break;
-      }
-      case CartForm.ACTIONS.GiftCardCodesUpdate: {
-        // Just keep this for backward compatibility, same as add gift card codes
-        const giftCardCodes = (inputs.giftCardCodes as string[]) || [];
-        result = await cart.addGiftCardCodes(giftCardCodes);
-        break;
-      }
-      case CartForm.ACTIONS.GiftCardCodesRemove: {
-        const giftCardIds = inputs.giftCardCodes as string[];
-        result = await cart.removeGiftCardCodes(giftCardIds);
-        break;
-      }
-      case CartForm.ACTIONS.BuyerIdentityUpdate:
-        result = await cart.updateBuyerIdentity({
-          ...(inputs.buyerIdentity as CartBuyerIdentityInput),
-        });
-        break;
-      default:
-        console.error("Unknown cart action:", cartFormAction);
-        console.error("Available actions:", Object.keys(CartForm.ACTIONS));
-        invariant(false, `${cartFormAction} cart action is not defined`);
+      break;
     }
-  } catch (err) {
-    await logError(`cart action: ${cartFormAction}`, err);
-    throw err;
+    case CartForm.ACTIONS.DiscountCodesUpdate: {
+      const formDiscountCode = inputs.discountCode;
+      const discountCodes = (
+        formDiscountCode ? [formDiscountCode] : []
+      ) as string[];
+      discountCodes.push(...(inputs.discountCodes as string[]));
+      result = await cart.updateDiscountCodes(discountCodes);
+      break;
+    }
+    case CartForm.ACTIONS.GiftCardCodesAdd: {
+      const giftCardCodes = (inputs.giftCardCodes as string[]) || [];
+      result = await cart.addGiftCardCodes(giftCardCodes);
+      break;
+    }
+    case CartForm.ACTIONS.GiftCardCodesUpdate: {
+      // Just keep this for backward compatibility, same as add gift card codes
+      const giftCardCodes = (inputs.giftCardCodes as string[]) || [];
+      result = await cart.addGiftCardCodes(giftCardCodes);
+      break;
+    }
+    case CartForm.ACTIONS.GiftCardCodesRemove: {
+      const giftCardIds = inputs.giftCardCodes as string[];
+      result = await cart.removeGiftCardCodes(giftCardIds);
+      break;
+    }
+    case CartForm.ACTIONS.BuyerIdentityUpdate:
+      result = await cart.updateBuyerIdentity({
+        ...(inputs.buyerIdentity as CartBuyerIdentityInput),
+      });
+      break;
+    default:
+      console.error("Unknown cart action:", cartFormAction);
+      console.error("Available actions:", Object.keys(CartForm.ACTIONS));
+      invariant(false, `${cartFormAction} cart action is not defined`);
   }
 
   let headers = {};
@@ -106,14 +100,9 @@ export async function action({ request, context }: ActionFunctionArgs) {
 export async function loader({ context }: LoaderFunctionArgs) {
   const { cart } = context;
 
-  try {
-    return {
-      cart: await cart.get(),
-    };
-  } catch (err) {
-    await logError("cart.data loader cart.get()", err);
-    throw err;
-  }
+  return {
+    cart: await cart.get(),
+  };
 }
 
 export default function CartRoute() {
