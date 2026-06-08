@@ -17,9 +17,20 @@ export async function loadCriticalData({
   request,
   context,
 }: LoaderFunctionArgs) {
-  const [layout, weaverseTheme] = await Promise.all([
+  const [layout, weaverseTheme, cart] = await Promise.all([
     getLayoutData(context),
     context.weaverse.loadThemeSettings(),
+    // Cart is loaded as critical (awaited) data, NOT deferred. The cart drawer
+    // and trigger badge render from `rootData.cart`, overlaying the in-flight
+    // add submission via useOptimisticCart. If the cart were deferred, a
+    // post-add revalidation would let the add fetcher settle (clearing the
+    // optimistic line) ~seconds before the deferred cart streamed in, so the
+    // line would briefly collapse onto a stale/empty base and vanish — worst on
+    // a first add to an empty cart. Awaiting here means `rootData.cart` is
+    // always the up-to-date cart the moment a (re)validation completes, so the
+    // optimistic line reconciles straight onto a correct base. `.catch` keeps a
+    // cart-fetch failure from 500-ing the whole page.
+    context.cart.get().catch(() => null),
   ]);
 
   const seo = seoPayload.root({ shop: layout.shop, url: request.url });
@@ -27,6 +38,7 @@ export async function loadCriticalData({
   const { storefront, env } = context;
   return {
     layout,
+    cart,
     seo,
     shop: getShopAnalytics({
       storefront,
@@ -53,10 +65,9 @@ export async function loadCriticalData({
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
 export function loadDeferredData({ context }: LoaderFunctionArgs) {
-  const { cart, customerAccount } = context;
+  const { customerAccount } = context;
 
   return {
-    cart: cart.get(),
     swatchesConfigs: getSwatchesConfigs(context),
     customerAccessToken: customerAccount.getAccessToken(),
   };

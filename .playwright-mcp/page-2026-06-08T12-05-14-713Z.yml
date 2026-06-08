@@ -1,0 +1,80 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#mainContent"
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Shamal" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Shamal" [ref=e7]
+      - generic [ref=e8]:
+        - link "Our Story" [ref=e9] [cursor=pointer]:
+          - /url: /#story
+        - link "Nordic Seasons" [ref=e10] [cursor=pointer]:
+          - /url: /collections/perfumes
+        - link "The Journal" [ref=e11] [cursor=pointer]:
+          - /url: /blogs/journal
+        - link "Shop" [ref=e12] [cursor=pointer]:
+          - /url: /#shop
+      - button "Open cart" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+        - generic [ref=e16]: "2"
+  - main [ref=e17]:
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: Your Selection
+          - generic [ref=e25]: ◆
+          - heading "Cart(2)" [level=1] [ref=e27]:
+            - text: Cart
+            - generic [ref=e28]: (2)
+        - generic [ref=e30]:
+          - list [ref=e35]:
+            - listitem [ref=e36]:
+              - img "Default Title" [ref=e39]
+              - generic [ref=e40]:
+                - link "Discovery set" [ref=e44] [cursor=pointer]:
+                  - /url: /products/discovery-set?Title=Default+Title
+                - generic [ref=e45]:
+                  - generic [ref=e46]:
+                    - generic [ref=e47]: Quantity, 2
+                    - generic [ref=e48]:
+                      - button "Decrease quantity" [ref=e50] [cursor=pointer]:
+                        - img [ref=e51]
+                      - generic [ref=e53]: "2"
+                      - button "Increase quantity" [ref=e55] [cursor=pointer]:
+                        - img [ref=e56]
+                    - button "Remove" [ref=e59] [cursor=pointer]
+                  - generic [ref=e60]: €160
+          - generic [ref=e61]:
+            - heading "Order summary" [level=2] [ref=e62]
+            - generic [ref=e64]: Order Summary
+            - generic [ref=e67]:
+              - term [ref=e68]: Estimated total
+              - definition [ref=e69]:
+                - generic [ref=e70]: €160.00
+            - generic [ref=e71]:
+              - text: Taxes, discounts and
+              - link "shipping" [ref=e72] [cursor=pointer]:
+                - /url: /policies/shipping-policy
+              - text: calculated at checkout.
+            - generic [ref=e73]:
+              - button "Note" [ref=e74] [cursor=pointer]
+              - generic [ref=e75]: ·
+              - button "Discount" [ref=e76] [cursor=pointer]
+              - generic [ref=e77]: ·
+              - button "Gift card" [ref=e78] [cursor=pointer]
+            - link "Continue to Checkout" [ref=e80] [cursor=pointer]:
+              - /url: https://shamal-9562.myshopify.com/cart/c/hWND6KuJs3sJuGPTLTlyBJh8?key=d32a376665603730b93714228873770b&_cs=3.ampS
+              - generic [ref=e81]: Continue to Checkout
+      - generic [ref=e83]:
+        - paragraph [ref=e84]: © 2026 Shamal. All rights reserved.
+        - list [ref=e85]:
+          - listitem [ref=e86]:
+            - link "Shipping" [ref=e87] [cursor=pointer]:
+              - /url: /policies/shipping-policy
+          - listitem [ref=e88]:
+            - link "Privacy" [ref=e89] [cursor=pointer]:
+              - /url: /policies/privacy-policy
+          - listitem [ref=e90]:
+            - link "Terms" [ref=e91] [cursor=pointer]:
+              - /url: /policies/terms-of-service

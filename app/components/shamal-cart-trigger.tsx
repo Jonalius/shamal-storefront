@@ -1,7 +1,6 @@
 import { HandbagIcon } from "@phosphor-icons/react";
 import type { CartReturn } from "@shopify/hydrogen";
-import { Suspense } from "react";
-import { Await, useRouteLoaderData } from "react-router";
+import { useRouteLoaderData } from "react-router";
 import { OptimisticCartCount } from "~/components/cart/optimistic-cart-count";
 import { useCartDrawerStore } from "~/components/cart/store";
 import type { RootLoader } from "~/root";
@@ -21,6 +20,8 @@ export function ShamalCartTrigger({
 }) {
   const openCartDrawer = useCartDrawerStore((state) => state.open);
   const rootData = useRouteLoaderData<RootLoader>("root");
+  // Cart is critical (awaited) root data, so it is always resolved here.
+  const cart = (rootData?.cart as CartReturn) ?? null;
 
   return (
     <button
@@ -33,21 +34,15 @@ export function ShamalCartTrigger({
       )}
     >
       <HandbagIcon className={cn("h-5 w-5", iconClassName)} weight="light" />
-      <Suspense fallback={null}>
-        <Await resolve={rootData?.cart} errorElement={null}>
-          {(cart) => (
-            <OptimisticCartCount cart={(cart as CartReturn) ?? null}>
-              {(count) =>
-                count > 0 ? (
-                  <span className="-top-0.5 -right-1 absolute font-medium text-[10px] text-shamal-gold leading-none tabular-nums">
-                    {count}
-                  </span>
-                ) : null
-              }
-            </OptimisticCartCount>
-          )}
-        </Await>
-      </Suspense>
+      <OptimisticCartCount cart={cart}>
+        {(count) =>
+          count > 0 ? (
+            <span className="-top-0.5 -right-1 absolute font-medium text-[10px] text-shamal-gold leading-none tabular-nums">
+              {count}
+            </span>
+          ) : null
+        }
+      </OptimisticCartCount>
     </button>
   );
 }

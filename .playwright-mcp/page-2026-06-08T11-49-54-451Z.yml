@@ -1,0 +1,66 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#mainContent"
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Shamal" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Shamal" [ref=e7]
+      - generic [ref=e8]:
+        - link "Our Story" [ref=e9] [cursor=pointer]:
+          - /url: /#story
+        - link "Nordic Seasons" [ref=e10] [cursor=pointer]:
+          - /url: /collections/perfumes
+        - link "The Journal" [ref=e11] [cursor=pointer]:
+          - /url: /blogs/journal
+        - link "Shop" [ref=e12] [cursor=pointer]:
+          - /url: /#shop
+      - button "Open cart" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: 01 · THE COLLECTION
+        - generic [ref=e25]: ◆
+        - heading "Perfumes" [level=1] [ref=e27]
+        - paragraph [ref=e28]: The artefacts. Each fragrance is a moment captured in glass — a walk through the forest after rain, the threshold from cold into warmth, spring's first bloom. Handcrafted in our Lohja atelier in small, numbered batches
+      - generic [ref=e30]:
+        - article [ref=e31]:
+          - link [ref=e34] [cursor=pointer]:
+            - /url: /products/first-voyage
+          - generic [ref=e35]:
+            - heading "First Voyage" [level=3] [ref=e36]:
+              - link "First Voyage" [ref=e37] [cursor=pointer]:
+                - /url: /products/first-voyage
+            - paragraph [ref=e38]: Autumn forest after rain. A walk through damp Finnish birch after the first a…
+            - paragraph [ref=e39]:
+              - generic [ref=e40]: €130.00
+            - link "RESERVE YOUR VOYAGE" [ref=e41] [cursor=pointer]:
+              - /url: /products/first-voyage
+            - paragraph [ref=e42]: Ships end of June
+        - article [ref=e43]:
+          - link [ref=e46] [cursor=pointer]:
+            - /url: /products/oodi-mokille
+          - generic [ref=e47]:
+            - heading "Oodi Mökille" [level=3] [ref=e48]:
+              - link "Oodi Mökille" [ref=e49] [cursor=pointer]:
+                - /url: /products/oodi-mokille
+            - paragraph [ref=e50]: Spring's first bloom. An ode to the Finnish summer cabin awakening. Lily of t…
+            - paragraph [ref=e51]:
+              - generic [ref=e52]: €130.00
+            - link "RESERVE YOUR VOYAGE" [ref=e53] [cursor=pointer]:
+              - /url: /products/oodi-mokille
+            - paragraph [ref=e54]: Ships end of June
+        - article [ref=e55]:
+          - link [ref=e58] [cursor=pointer]:
+            - /url: /products/winter-voyage
+          - generic [ref=e59]:
+            - heading "Winter Voyage" [level=3] [ref=e60]:
+              - link "Winter Voyage" [ref=e61] [cursor=pointer]:
+                - /url: /products/winter-voyage
+            - paragraph [ref=e62]: From cold into warmth. The threshold from frozen lake into the wood-smoke bre…
+            - paragraph [ref=e63]:
+              - generic [ref=e64]: €130.00
+            - link "RESERVE YOUR VOYAGE" [ref=e65] [cursor=pointer]:
+              - /url: /products/winter-voyage
+            - paragraph [ref=e66]: Ships end of June

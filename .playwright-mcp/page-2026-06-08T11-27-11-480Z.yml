@@ -1,0 +1,183 @@
+- generic:
+  - generic:
+    - link:
+      - /url: "#mainContent"
+      - text: Skip to content
+    - navigation:
+      - generic:
+        - link:
+          - /url: /
+          - img
+        - generic:
+          - link:
+            - /url: /#story
+            - text: Our Story
+          - link:
+            - /url: /collections/perfumes
+            - text: Nordic Seasons
+          - link:
+            - /url: /blogs/journal
+            - text: The Journal
+          - link:
+            - /url: /#shop
+            - text: Shop
+        - button:
+          - img
+          - generic: "2"
+    - main:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - img
+              - generic:
+                - generic: PERFUME
+                - heading [level=1]: Discovery set
+                - paragraph: Begin your journey. The Discovery Set houses three 5ml bottles of our current voyages — First Voyage, Winter Voyage, …
+                - generic:
+                  - paragraph: Begin your journey. The Discovery Set houses three 5ml bottles of our current voyages — First Voyage, Winter Voyage, and Oodi Mökille — in a leather case handcrafted in our Helsinki atelier. The perfect introduction to the Shamal world, and a beautiful object in its own right.
+                  - paragraph: "What's included:"
+                  - paragraph: "- Handmade leather case"
+                  - paragraph: "- First Voyage 5ml"
+                  - paragraph: "- Winter Voyage 5ml"
+                  - paragraph: "- Oodi Mökille 5ml"
+                  - paragraph
+                  - paragraph: Free shipping within Finland and the EU. Ships within 3–5 business days.
+                - generic:
+                  - generic:
+                    - generic: ◆
+                - generic:
+                  - generic:
+                    - generic: €80.00
+                - generic:
+                  - generic:
+                    - button [disabled]: −
+                    - generic: "1"
+                    - button: +
+                  - generic:
+                    - button:
+                      - generic: ADD TO CART
+                - paragraph: Free shipping within Finland & EU
+          - generic:
+            - generic:
+              - generic: THE NOTES
+              - generic:
+                - heading [level=3]: What's included
+                - list:
+                  - listitem:
+                    - generic: ◆
+                    - generic: Handmade leather case
+                  - listitem:
+                    - generic: ◆
+                    - generic: First Voyage 5ml · Winter Voyage 5ml · Oodi Mökille 5ml
+                  - listitem:
+                    - generic: ◆
+                    - generic: Free shipping within Finland & EU
+              - generic:
+                - generic:
+                  - generic: ◆
+              - paragraph: Crafted in Helsinki
+          - generic:
+            - generic:
+              - generic: HANDCRAFTED IN FINLAND
+              - paragraph: Blended at our Lohja atelier. Ancient oud. Nordic botanicals. Small batch only.
+            - generic:
+              - generic:
+                - img
+                - paragraph: Artisan fragrances handcrafted in Helsinki, Finland.
+                - paragraph: Where Nordic silence meets Eastern mystery.
+              - generic:
+                - generic: EXPLORE
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /products/discovery-set#story
+                      - text: Our Story
+                  - listitem:
+                    - link:
+                      - /url: /collections/perfumes
+                      - text: Nordic Seasons
+                  - listitem:
+                    - link:
+                      - /url: /blogs/journal
+                      - text: The Journal
+                  - listitem:
+                    - link:
+                      - /url: /products/discovery-set#shop
+                      - text: Shop All
+              - generic:
+                - generic: CONTACT
+                - paragraph: Helsinki, Finland
+                - paragraph: Lohja Atelier
+                - link:
+                  - /url: mailto:hello@shamal.fi
+                  - text: hello@shamal.fi
+            - generic:
+              - paragraph: © 2026 Shamal. All rights reserved.
+              - list:
+                - listitem:
+                  - link:
+                    - /url: /policies/privacy-policy
+                    - text: Privacy
+                - listitem:
+                  - link:
+                    - /url: /policies/terms-of-service
+                    - text: Terms
+                - listitem:
+                  - link:
+                    - /url: /policies/shipping-policy
+                    - text: Shipping
+  - dialog "Cart(2)" [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - text: Cart
+          - generic [ref=e26]: (2)
+        - button "Close cart drawer" [active] [ref=e27] [cursor=pointer]:
+          - img [ref=e28]
+      - generic [ref=e30]:
+        - list [ref=e35]:
+          - listitem [ref=e36]:
+            - img "Default Title" [ref=e39]
+            - generic [ref=e40]:
+              - generic [ref=e41]:
+                - link "Discovery set" [ref=e44] [cursor=pointer]:
+                  - /url: /products/discovery-set?Title=Default+Title
+                - button "Remove" [ref=e46] [cursor=pointer]:
+                  - generic [ref=e47]: Remove
+                  - img [ref=e48]
+              - generic [ref=e50]:
+                - generic [ref=e51]:
+                  - generic [ref=e52]: Quantity, 2
+                  - generic [ref=e53]:
+                    - button "Decrease quantity" [ref=e55] [cursor=pointer]:
+                      - img [ref=e56]
+                    - generic [ref=e58]: "2"
+                    - button "Increase quantity" [ref=e60] [cursor=pointer]:
+                      - img [ref=e61]
+                - generic [ref=e63]: €160
+        - generic [ref=e64]:
+          - heading "Order summary" [level=2] [ref=e65]
+          - generic [ref=e67]:
+            - term [ref=e68]: Estimated total
+            - definition [ref=e69]:
+              - generic [ref=e70]: €160.00
+          - generic [ref=e71]:
+            - text: Taxes, discounts and
+            - link "shipping" [ref=e72] [cursor=pointer]:
+              - /url: /policies/shipping-policy
+            - text: calculated at checkout.
+          - generic [ref=e73]:
+            - button "Note" [ref=e74] [cursor=pointer]
+            - generic [ref=e75]: ·
+            - button "Discount" [ref=e76] [cursor=pointer]
+            - generic [ref=e77]: ·
+            - button "Gift card" [ref=e78] [cursor=pointer]
+          - generic [ref=e79]:
+            - link "Continue to Checkout" [ref=e80] [cursor=pointer]:
+              - /url: https://shamal-9562.myshopify.com/cart/c/hWND6H0v75Sd9oyqc02Am2H0?key=6084a456ceec6c26b66ebf61585be46d&_cs=3.ampS
+              - generic [ref=e81]: Continue to Checkout
+            - link "View cart" [ref=e82] [cursor=pointer]:
+              - /url: /cart

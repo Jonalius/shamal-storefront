@@ -1,0 +1,175 @@
+- generic:
+  - generic:
+    - link:
+      - /url: "#mainContent"
+      - text: Skip to content
+    - navigation:
+      - generic:
+        - link:
+          - /url: /
+          - img
+        - generic:
+          - link:
+            - /url: /#story
+            - text: Our Story
+          - link:
+            - /url: /collections/perfumes
+            - text: Nordic Seasons
+          - link:
+            - /url: /blogs/journal
+            - text: The Journal
+          - link:
+            - /url: /#shop
+            - text: Shop
+        - button:
+          - img
+          - generic: "1"
+    - main:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic: PERFUME
+                - heading [level=1]: First Voyage
+                - paragraph: Autumn forest after rain. A walk through damp Finnish birch after the first autumn rain. Wet bark, cold air, and the …
+                - generic:
+                  - paragraph: Autumn forest after rain.
+                  - paragraph: A walk through damp Finnish birch after the first autumn rain. Wet bark, cold air, and the quiet smoke of a distant fire — the moment the forest exhales.
+                  - paragraph: "Top: Wet earth · Black pepper · Bergamot"
+                  - paragraph: "Heart: Oud · Cedarwood · Leather"
+                  - paragraph: "Base: Moss · Amber · Vetiver"
+                  - paragraph: 30ml · Handcrafted · Limited batch
+                  - paragraph: Pre-order. Ships end of June. Reserve yours before the world knows.
+                - generic:
+                  - generic:
+                    - generic: ◆
+                - generic:
+                  - generic:
+                    - generic: €130.00
+                - generic:
+                  - generic:
+                    - button:
+                      - generic: RESERVE YOUR VOYAGE
+                  - paragraph: Ships end of June
+                - paragraph: Free shipping within Finland & EU
+          - generic:
+            - generic:
+              - generic: THE NOTES
+              - generic:
+                - heading [level=3]: What's included
+                - list:
+                  - listitem:
+                    - generic: ◆
+                    - generic: Handmade leather case
+                  - listitem:
+                    - generic: ◆
+                    - generic: First Voyage 5ml · Winter Voyage 5ml · Oodi Mökille 5ml
+                  - listitem:
+                    - generic: ◆
+                    - generic: Free shipping within Finland & EU
+              - generic:
+                - generic:
+                  - generic: ◆
+              - paragraph: Crafted in Helsinki
+          - generic:
+            - generic:
+              - generic: HANDCRAFTED IN FINLAND
+              - paragraph: Blended at our Lohja atelier. Ancient oud. Nordic botanicals. Small batch only.
+            - generic:
+              - generic:
+                - img
+                - paragraph: Artisan fragrances handcrafted in Helsinki, Finland.
+                - paragraph: Where Nordic silence meets Eastern mystery.
+              - generic:
+                - generic: EXPLORE
+                - list:
+                  - listitem:
+                    - link:
+                      - /url: /products/first-voyage#story
+                      - text: Our Story
+                  - listitem:
+                    - link:
+                      - /url: /collections/perfumes
+                      - text: Nordic Seasons
+                  - listitem:
+                    - link:
+                      - /url: /blogs/journal
+                      - text: The Journal
+                  - listitem:
+                    - link:
+                      - /url: /products/first-voyage#shop
+                      - text: Shop All
+              - generic:
+                - generic: CONTACT
+                - paragraph: Helsinki, Finland
+                - paragraph: Lohja Atelier
+                - link:
+                  - /url: mailto:hello@shamal.fi
+                  - text: hello@shamal.fi
+            - generic:
+              - paragraph: © 2026 Shamal. All rights reserved.
+              - list:
+                - listitem:
+                  - link:
+                    - /url: /policies/privacy-policy
+                    - text: Privacy
+                - listitem:
+                  - link:
+                    - /url: /policies/terms-of-service
+                    - text: Terms
+                - listitem:
+                  - link:
+                    - /url: /policies/shipping-policy
+                    - text: Shipping
+  - dialog "Cart(1)" [ref=e161]:
+    - generic [ref=e162]:
+      - generic [ref=e163]:
+        - generic [ref=e164]:
+          - text: Cart
+          - generic [ref=e165]: (1)
+        - button "Close cart drawer" [active] [ref=e166] [cursor=pointer]:
+          - img [ref=e167]
+      - generic [ref=e169]:
+        - list [ref=e174]:
+          - listitem [ref=e175]:
+            - generic [ref=e176]:
+              - generic [ref=e177]:
+                - link "First Voyage" [ref=e180] [cursor=pointer]:
+                  - /url: /products/first-voyage?Title=Default+Title
+                - button "Remove" [ref=e182] [cursor=pointer]:
+                  - generic [ref=e183]: Remove
+                  - img [ref=e184]
+              - generic [ref=e186]:
+                - generic [ref=e187]:
+                  - generic [ref=e188]: Quantity, 1
+                  - generic [ref=e189]:
+                    - button "Decrease quantity" [disabled] [ref=e191]:
+                      - img [ref=e192]
+                    - generic [ref=e194]: "1"
+                    - button "Increase quantity" [ref=e196] [cursor=pointer]:
+                      - img [ref=e197]
+                - generic [ref=e199]: €130
+        - generic [ref=e200]:
+          - heading "Order summary" [level=2] [ref=e201]
+          - generic [ref=e203]:
+            - term [ref=e204]: Estimated total
+            - definition [ref=e205]:
+              - generic [ref=e206]: €130.00
+          - generic [ref=e207]:
+            - text: Taxes, discounts and
+            - link "shipping" [ref=e208] [cursor=pointer]:
+              - /url: /policies/shipping-policy
+            - text: calculated at checkout.
+          - generic [ref=e209]:
+            - button "Note" [ref=e210] [cursor=pointer]
+            - generic [ref=e211]: ·
+            - button "Discount" [ref=e212] [cursor=pointer]
+            - generic [ref=e213]: ·
+            - button "Gift card" [ref=e214] [cursor=pointer]
+          - generic [ref=e215]:
+            - link "Continue to Checkout" [ref=e216] [cursor=pointer]:
+              - /url: https://shamal-9562.myshopify.com/cart/c/hWND6JhknD83fqYorE5dmCdK?key=6bdfc59420c7a6cff0a1deea3ffb6ee9&_cs=3.ampS
+              - generic [ref=e217]: Continue to Checkout
+            - link "View cart" [ref=e218] [cursor=pointer]:
+              - /url: /cart

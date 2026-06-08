@@ -1,0 +1,98 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#mainContent"
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Shamal" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Shamal" [ref=e7]
+      - generic [ref=e8]:
+        - link "Our Story" [ref=e9] [cursor=pointer]:
+          - /url: /#story
+        - link "Nordic Seasons" [ref=e10] [cursor=pointer]:
+          - /url: /collections/perfumes
+        - link "The Journal" [ref=e11] [cursor=pointer]:
+          - /url: /blogs/journal
+        - link "Shop" [ref=e12] [cursor=pointer]:
+          - /url: /#shop
+      - button "Open cart" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+  - main [ref=e16]:
+    - generic [ref=e69]:
+      - generic [ref=e75]:
+        - generic [ref=e76]: PERFUME
+        - heading "First Voyage" [level=1] [ref=e77]
+        - paragraph [ref=e78]: Autumn forest after rain. A walk through damp Finnish birch after the first autumn rain. Wet bark, cold air, and the …
+        - generic [ref=e79]:
+          - paragraph [ref=e80]: Autumn forest after rain.
+          - paragraph [ref=e81]: A walk through damp Finnish birch after the first autumn rain. Wet bark, cold air, and the quiet smoke of a distant fire — the moment the forest exhales.
+          - paragraph [ref=e82]: "Top: Wet earth · Black pepper · Bergamot"
+          - paragraph [ref=e83]: "Heart: Oud · Cedarwood · Leather"
+          - paragraph [ref=e84]: "Base: Moss · Amber · Vetiver"
+          - paragraph [ref=e85]: 30ml · Handcrafted · Limited batch
+          - paragraph [ref=e86]: Pre-order. Ships end of June. Reserve yours before the world knows.
+        - generic [ref=e90]: ◆
+        - generic [ref=e94]: €130.00
+        - generic [ref=e95]:
+          - button "RESERVE YOUR VOYAGE" [ref=e97] [cursor=pointer]:
+            - generic [ref=e98]: RESERVE YOUR VOYAGE
+          - paragraph [ref=e99]: Ships end of June
+        - paragraph [ref=e100]: Free shipping within Finland & EU
+      - generic [ref=e102]:
+        - generic [ref=e103]: THE NOTES
+        - generic [ref=e104]:
+          - heading "What's included" [level=3] [ref=e105]
+          - list [ref=e106]:
+            - listitem [ref=e107]:
+              - generic [ref=e108]: ◆
+              - generic [ref=e109]: Handmade leather case
+            - listitem [ref=e110]:
+              - generic [ref=e111]: ◆
+              - generic [ref=e112]: First Voyage 5ml · Winter Voyage 5ml · Oodi Mökille 5ml
+            - listitem [ref=e113]:
+              - generic [ref=e114]: ◆
+              - generic [ref=e115]: Free shipping within Finland & EU
+        - generic [ref=e119]: ◆
+        - paragraph [ref=e121]: Crafted in Helsinki
+      - generic [ref=e122]:
+        - generic [ref=e125]:
+          - generic [ref=e126]: HANDCRAFTED IN FINLAND
+          - paragraph [ref=e127]: Blended at our Lohja atelier. Ancient oud. Nordic botanicals. Small batch only.
+        - generic [ref=e130]:
+          - generic [ref=e131]:
+            - img "Shamal" [ref=e132]
+            - paragraph [ref=e133]: Artisan fragrances handcrafted in Helsinki, Finland.
+            - paragraph [ref=e134]: Where Nordic silence meets Eastern mystery.
+          - generic [ref=e135]:
+            - generic [ref=e136]: EXPLORE
+            - list [ref=e137]:
+              - listitem [ref=e138]:
+                - link "Our Story" [ref=e139] [cursor=pointer]:
+                  - /url: /products/first-voyage#story
+              - listitem [ref=e140]:
+                - link "Nordic Seasons" [ref=e141] [cursor=pointer]:
+                  - /url: /collections/perfumes
+              - listitem [ref=e142]:
+                - link "The Journal" [ref=e143] [cursor=pointer]:
+                  - /url: /blogs/journal
+              - listitem [ref=e144]:
+                - link "Shop All" [ref=e145] [cursor=pointer]:
+                  - /url: /products/first-voyage#shop
+          - generic [ref=e146]:
+            - generic [ref=e147]: CONTACT
+            - paragraph [ref=e148]: Helsinki, Finland
+            - paragraph [ref=e149]: Lohja Atelier
+            - link "hello@shamal.fi" [ref=e150] [cursor=pointer]:
+              - /url: mailto:hello@shamal.fi
+        - generic [ref=e151]:
+          - paragraph [ref=e152]: © 2026 Shamal. All rights reserved.
+          - list [ref=e153]:
+            - listitem [ref=e154]:
+              - link "Privacy" [ref=e155] [cursor=pointer]:
+                - /url: /policies/privacy-policy
+            - listitem [ref=e156]:
+              - link "Terms" [ref=e157] [cursor=pointer]:
+                - /url: /policies/terms-of-service
+            - listitem [ref=e158]:
+              - link "Shipping" [ref=e159] [cursor=pointer]:
+                - /url: /policies/shipping-policy

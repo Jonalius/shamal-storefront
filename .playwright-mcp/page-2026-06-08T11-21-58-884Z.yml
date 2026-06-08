@@ -1,0 +1,210 @@
+- generic:
+  - generic:
+    - link:
+      - /url: "#mainContent"
+      - text: Skip to content
+    - navigation:
+      - generic:
+        - link:
+          - /url: /
+          - img
+        - generic:
+          - link:
+            - /url: /#story
+            - text: Our Story
+          - link:
+            - /url: /collections/perfumes
+            - text: Nordic Seasons
+          - link:
+            - /url: /blogs/journal
+            - text: The Journal
+          - link:
+            - /url: /#shop
+            - text: Shop
+        - button:
+          - img
+    - main:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - link:
+                - /url: /
+                - text: Home
+              - generic: /
+              - generic: "404"
+            - heading [level=4]: We’ve lost this product
+            - paragraph: We couldn’t find the product you’re looking for. It may have been removed, had its name changed, or is temporarily unavailable.
+            - generic:
+              - generic: What you can do?
+              - generic:
+                - link:
+                  - /url: /products
+                  - text: Shop our products
+                - generic: Or
+                - link:
+                  - /url: /
+                  - text: Take me to the home page
+          - generic:
+            - heading [level=5]: Featured products
+            - generic:
+              - generic:
+                - generic:
+                  - link:
+                    - /url: /products/refill?Title=Default+Title
+                    - generic:
+                      - img
+                  - button:
+                    - img
+                - generic:
+                  - generic: Shamal
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - img
+                        - img
+                        - img
+                        - img
+                      - generic: No reviews
+                  - generic:
+                    - link:
+                      - /url: /products/refill?Title=Default+Title
+                      - text: Refill
+                    - generic:
+                      - generic: €60
+              - generic:
+                - generic:
+                  - link:
+                    - /url: /products/oodi-mokille?Title=Default+Title
+                    - generic:
+                      - img
+                  - button:
+                    - img
+                - generic:
+                  - generic: Shamal
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - img
+                        - img
+                        - img
+                        - img
+                      - generic: No reviews
+                  - generic:
+                    - link:
+                      - /url: /products/oodi-mokille?Title=Default+Title
+                      - text: Oodi Mökille
+                    - generic:
+                      - generic: €130
+              - generic:
+                - generic:
+                  - link:
+                    - /url: /products/winter-voyage?Title=Default+Title
+                    - generic:
+                      - img
+                  - button:
+                    - img
+                - generic:
+                  - generic: Shamal
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - img
+                        - img
+                        - img
+                        - img
+                      - generic: No reviews
+                  - generic:
+                    - link:
+                      - /url: /products/winter-voyage?Title=Default+Title
+                      - text: Winter Voyage
+                    - generic:
+                      - generic: €130
+              - generic:
+                - generic:
+                  - link:
+                    - /url: /products/first-voyage?Title=Default+Title
+                    - generic:
+                      - img
+                  - button [expanded]:
+                    - img
+                - generic:
+                  - generic: Shamal
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - img
+                        - img
+                        - img
+                        - img
+                      - generic: No reviews
+                  - generic:
+                    - link:
+                      - /url: /products/first-voyage?Title=Default+Title
+                      - text: First Voyage
+                    - generic:
+                      - generic: €130
+              - generic:
+                - generic:
+                  - link:
+                    - /url: /products/discovery-set?Title=Default+Title
+                    - generic:
+                      - img
+                  - button:
+                    - img
+                - generic:
+                  - generic: Shamal
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - img
+                        - img
+                        - img
+                        - img
+                      - generic: No reviews
+                  - generic:
+                    - link:
+                      - /url: /products/discovery-set?Title=Default+Title
+                      - text: Discovery set
+                    - generic:
+                      - generic: €80
+  - dialog "Quick shop modal" [ref=e177]:
+    - generic [ref=e178]:
+      - button [active] [ref=e179] [cursor=pointer]:
+        - img [ref=e180]
+      - heading "Quick shop modal" [level=2] [ref=e182]
+      - generic [ref=e185]:
+        - generic [ref=e186]:
+          - heading "First Voyage" [level=5] [ref=e188]
+          - generic [ref=e190]: €130
+          - generic [ref=e192]:
+            - generic [ref=e193]:
+              - img [ref=e194]
+              - img [ref=e196]
+              - img [ref=e198]
+              - img [ref=e200]
+              - img [ref=e202]
+            - generic [ref=e204]: No reviews
+          - paragraph [ref=e205]: "Autumn forest after rain. A walk through damp Finnish birch after the first autumn rain. Wet bark, cold air, and the quiet smoke of a distant fire — the moment the forest exhales. Top: Wet earth · ..."
+        - generic [ref=e206]:
+          - generic [ref=e207]: Quantity
+          - generic [ref=e208]:
+            - button "Decrease quantity" [disabled] [ref=e209] [cursor=pointer]:
+              - img [ref=e210]
+            - textbox [ref=e212]: "1"
+            - button "Increase quantity" [ref=e213] [cursor=pointer]:
+              - img [ref=e214]
+        - button "Add to cart" [ref=e217] [cursor=pointer]:
+          - generic [ref=e218]: Add to cart
+        - link "Buy with Shop Pay" [ref=e222] [cursor=pointer]:
+          - /url: https://shamal-9562.myshopify.com/cart/57939390398851:1?payment=shop_pay&channel=hydrogen
+          - generic [ref=e223]: Buy with Shop Pay
+          - img [ref=e224]:
+            - img [ref=e225]
+        - link "View full details →" [ref=e231] [cursor=pointer]:
+          - /url: /products/first-voyage

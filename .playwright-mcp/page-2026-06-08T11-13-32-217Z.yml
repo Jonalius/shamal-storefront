@@ -1,0 +1,36 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#mainContent"
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Shamal" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Shamal" [ref=e7]
+      - generic [ref=e8]:
+        - link "Our Story" [ref=e9] [cursor=pointer]:
+          - /url: /#story
+        - link "Nordic Seasons" [ref=e10] [cursor=pointer]:
+          - /url: /collections/perfumes
+        - link "The Journal" [ref=e11] [cursor=pointer]:
+          - /url: /blogs/journal
+        - link "Shop" [ref=e12] [cursor=pointer]:
+          - /url: /#shop
+      - button "Open cart" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+  - main [ref=e16]:
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - link "Home" [ref=e21] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e22]: /
+        - generic [ref=e23]: "404"
+      - heading "We’ve lost this product" [level=4] [ref=e24]
+      - paragraph [ref=e25]: We couldn’t find the product you’re looking for. It may have been removed, had its name changed, or is temporarily unavailable.
+      - generic [ref=e26]:
+        - generic [ref=e27]: What you can do?
+        - generic [ref=e28]:
+          - link "Shop our products" [ref=e29] [cursor=pointer]:
+            - /url: /products
+          - generic [ref=e30]: Or
+          - link "Take me to the home page" [ref=e31] [cursor=pointer]:
+            - /url: /
