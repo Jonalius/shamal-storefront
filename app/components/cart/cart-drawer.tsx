@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { Suspense, useEffect, useRef } from "react";
 import { Await, useLocation, useRouteLoaderData } from "react-router";
 import { CartMain } from "~/components/cart/cart-main";
+import { OptimisticCartCount } from "~/components/cart/optimistic-cart-count";
 import type { RootLoader } from "~/root";
 import { useCartDrawerStore } from "./store";
 
@@ -46,21 +47,27 @@ export function CartDrawer() {
           <Await resolve={rootData?.cart} errorElement={null}>
             {(cart) => {
               cartRef.current = (cart as CartReturn) ?? null;
-              return cart && cart.totalQuantity > 0 ? (
-                <div
-                  className={clsx(
-                    "cart-count",
-                    "-right-1.5 absolute top-0",
-                    "flex h-4.5 min-w-4.5 items-center justify-center rounded-full px-1 text-center",
-                    "text-center font-medium text-[13px] leading-none",
-                    "transition-colors duration-300",
-                    "group-hover/header:bg-(--color-header-text)",
-                    "group-hover/header:text-(--color-header-bg)",
-                  )}
-                >
-                  <span>{cart.totalQuantity}</span>
-                </div>
-              ) : null;
+              return (
+                <OptimisticCartCount cart={(cart as CartReturn) ?? null}>
+                  {(count) =>
+                    count > 0 ? (
+                      <div
+                        className={clsx(
+                          "cart-count",
+                          "-right-1.5 absolute top-0",
+                          "flex h-4.5 min-w-4.5 items-center justify-center rounded-full px-1 text-center",
+                          "text-center font-medium text-[13px] leading-none",
+                          "transition-colors duration-300",
+                          "group-hover/header:bg-(--color-header-text)",
+                          "group-hover/header:text-(--color-header-bg)",
+                        )}
+                      >
+                        <span>{count}</span>
+                      </div>
+                    ) : null
+                  }
+                </OptimisticCartCount>
+              );
             }}
           </Await>
         </Suspense>
@@ -90,12 +97,18 @@ export function CartDrawer() {
                   <Suspense fallback={<>Cart</>}>
                     <Await resolve={rootData?.cart} errorElement={<>Cart</>}>
                       {(cart) => (
-                        <>
-                          Cart
-                          <span className="ml-2 text-xl text-shamal-white-dim italic">
-                            ({cart?.totalQuantity || 0})
-                          </span>
-                        </>
+                        <OptimisticCartCount
+                          cart={(cart as CartReturn) ?? null}
+                        >
+                          {(count) => (
+                            <>
+                              Cart
+                              <span className="ml-2 text-xl text-shamal-white-dim italic">
+                                ({count})
+                              </span>
+                            </>
+                          )}
+                        </OptimisticCartCount>
                       )}
                     </Await>
                   </Suspense>
@@ -111,7 +124,26 @@ export function CartDrawer() {
                 </button>
               </Dialog.Close>
             </div>
-            <Suspense fallback={null}>
+            {/*
+              The fallback renders CartMain with a null base cart rather than
+              `null`. On the FIRST add to a previously-empty cart, the LinesAdd
+              creates a brand-new cart server-side, so revalidation hands this
+              Await a genuinely pending promise. Because the drawer mounts fresh
+              on open, its Suspense boundary has no prior content to preserve and
+              would otherwise show an empty fallback — unmounting CartMain and
+              with it the useOptimisticCart that should render the optimistic
+              first line. Mounting CartMain in the fallback (with cart={null},
+              which useOptimisticCart handles) lets the optimistic line appear
+              immediately; it reconciles to the real cart when the promise lands.
+            */}
+            <Suspense
+              fallback={
+                <CartMain
+                  layout="drawer"
+                  cart={null as unknown as CartReturn}
+                />
+              }
+            >
               <Await resolve={rootData?.cart} errorElement={null}>
                 {(cart) => (
                   <CartMain layout="drawer" cart={cart as CartReturn} />

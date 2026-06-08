@@ -5,11 +5,13 @@ import { cn } from "~/utils/cn";
 
 // Homepage-absolute hrefs so the links work from collection/product pages too:
 // on the homepage they resolve to same-document fragment scrolls; elsewhere
-// they navigate home and scroll to the section.
+// they navigate home and scroll to the section. "Nordic Seasons" and
+// "The Journal" point at real routes (the old "/#voyages" / "/#journal"
+// homepage anchors were removed in the rebrand).
 const NAV_LINKS = [
   { label: "Our Story", href: "/#story" },
-  { label: "Nordic Seasons", href: "/#voyages" },
-  { label: "The Journal", href: "/#journal" },
+  { label: "Nordic Seasons", href: "/collections/perfumes" },
+  { label: "The Journal", href: "/blogs/journal" },
   { label: "Shop", href: "/#shop" },
 ] as const;
 

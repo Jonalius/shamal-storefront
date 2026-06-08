@@ -273,7 +273,7 @@ export const schema = createSchema({
           type: "text",
           name: "exploreLink2Url",
           label: "Link 2 url",
-          defaultValue: "#voyages",
+          defaultValue: "/collections/perfumes",
         },
         {
           type: "text",
@@ -285,7 +285,7 @@ export const schema = createSchema({
           type: "text",
           name: "exploreLink3Url",
           label: "Link 3 url",
-          defaultValue: "/journal",
+          defaultValue: "/blogs/journal",
         },
         {
           type: "text",

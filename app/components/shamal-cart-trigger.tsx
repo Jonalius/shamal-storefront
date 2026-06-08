@@ -1,6 +1,8 @@
 import { HandbagIcon } from "@phosphor-icons/react";
+import type { CartReturn } from "@shopify/hydrogen";
 import { Suspense } from "react";
 import { Await, useRouteLoaderData } from "react-router";
+import { OptimisticCartCount } from "~/components/cart/optimistic-cart-count";
 import { useCartDrawerStore } from "~/components/cart/store";
 import type { RootLoader } from "~/root";
 import { cn } from "~/utils/cn";
@@ -33,13 +35,17 @@ export function ShamalCartTrigger({
       <HandbagIcon className={cn("h-5 w-5", iconClassName)} weight="light" />
       <Suspense fallback={null}>
         <Await resolve={rootData?.cart} errorElement={null}>
-          {(cart) =>
-            cart && cart.totalQuantity > 0 ? (
-              <span className="-top-0.5 -right-1 absolute font-medium text-[10px] text-shamal-gold leading-none tabular-nums">
-                {cart.totalQuantity}
-              </span>
-            ) : null
-          }
+          {(cart) => (
+            <OptimisticCartCount cart={(cart as CartReturn) ?? null}>
+              {(count) =>
+                count > 0 ? (
+                  <span className="-top-0.5 -right-1 absolute font-medium text-[10px] text-shamal-gold leading-none tabular-nums">
+                    {count}
+                  </span>
+                ) : null
+              }
+            </OptimisticCartCount>
+          )}
         </Await>
       </Suspense>
     </button>
