@@ -18,8 +18,18 @@ import {
 } from "react-router";
 import invariant from "tiny-invariant";
 import { CartMain } from "~/components/cart/cart-main";
+import { serializeError } from "~/utils/serialize-error";
 
-export async function action({ request, context }: ActionFunctionArgs) {
+export async function action(args: ActionFunctionArgs) {
+  try {
+    return await cartAction(args);
+  } catch (error) {
+    console.error("[cart-diag-action]", serializeError(error));
+    throw error;
+  }
+}
+
+async function cartAction({ request, context }: ActionFunctionArgs) {
   const { cart } = context;
   const formData = await request.formData();
   const { action: cartFormAction, inputs } = CartForm.getFormInput(formData);
@@ -98,11 +108,16 @@ export async function action({ request, context }: ActionFunctionArgs) {
 }
 
 export async function loader({ context }: LoaderFunctionArgs) {
-  const { cart } = context;
+  try {
+    const { cart } = context;
 
-  return {
-    cart: await cart.get(),
-  };
+    return {
+      cart: await cart.get(),
+    };
+  } catch (error) {
+    console.error("[cart-diag-loader]", serializeError(error));
+    throw error;
+  }
 }
 
 export default function CartRoute() {

@@ -4,10 +4,27 @@ import {
 } from "@shopify/hydrogen";
 import { isbot } from "isbot";
 import { renderToReadableStream } from "react-dom/server";
-import type { EntryContext } from "react-router";
+import type { EntryContext, HandleErrorFunction } from "react-router";
 import { ServerRouter } from "react-router";
-
+import { serializeError } from "~/utils/serialize-error";
 import { getWeaverseCsp } from "~/weaverse/csp";
+
+/**
+ * Catch-all for ANY uncaught loader/action/render throw across all routes.
+ * This is the net that caught nothing last time because it wasn't wired up.
+ */
+export const handleError: HandleErrorFunction = (error, { request }) => {
+  // Ignore client-aborted requests — those are not real failures.
+  if (request.signal.aborted) {
+    return;
+  }
+  console.error(
+    "[cart-diag-ssr] handleError",
+    request.method,
+    new URL(request.url).pathname,
+    serializeError(error),
+  );
+};
 
 export default async function handleRequest(
   request: Request,
@@ -37,7 +54,7 @@ export default async function handleRequest(
       nonce,
       signal: request.signal,
       onError(error) {
-        console.error(error);
+        console.error("[cart-diag-ssr] render onError", serializeError(error));
         responseStatusCode = 500;
       },
     },
