@@ -7,6 +7,7 @@ import { createSchema, type HydrogenComponentProps } from "@weaverse/hydrogen";
 import { useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router";
 import { AddToCartButton } from "~/components/product/add-to-cart-button";
+import { WaitlistForm } from "~/components/waitlist-form";
 import type { loader as productRouteLoader } from "~/routes/products/product";
 import { cn } from "~/utils/cn";
 
@@ -18,8 +19,12 @@ interface ShamalProductMainProps extends HydrogenComponentProps {
   subtitle: string;
   addToCartText: string;
   soldOutText: string;
-  preOrderCtaText: string;
-  preOrderNote: string;
+  preOrderShipsText: string;
+  preOrderWaitlistText: string;
+  preOrderWaitlistPlaceholder: string;
+  preOrderWaitlistButton: string;
+  preOrderWaitlistSuccess: string;
+  preOrderWaitlistPrivacy: string;
   refillCtaText: string;
   refillNote: string;
   shippingNote: string;
@@ -31,8 +36,12 @@ export default function ShamalProductMain(props: ShamalProductMainProps) {
     subtitle,
     addToCartText,
     soldOutText,
-    preOrderCtaText,
-    preOrderNote,
+    preOrderShipsText,
+    preOrderWaitlistText,
+    preOrderWaitlistPlaceholder,
+    preOrderWaitlistButton,
+    preOrderWaitlistSuccess,
+    preOrderWaitlistPrivacy,
     refillCtaText,
     refillNote,
     shippingNote,
@@ -208,19 +217,21 @@ export default function ShamalProductMain(props: ShamalProductMainProps) {
             <DiamondDivider />
           </div>
 
-          <div
-            className={cn("mt-8 flex items-baseline gap-3", revealClass())}
-            style={revealStyle(600)}
-          >
-            <span className="font-cormorant text-4xl font-light text-shamal-white">
-              <Money data={price} />
-            </span>
-            {selectedVariant?.compareAtPrice && (
-              <span className="font-cabin text-base text-shamal-white-dim line-through">
-                <Money data={selectedVariant.compareAtPrice} />
+          {!isPreOrder && (
+            <div
+              className={cn("mt-8 flex items-baseline gap-3", revealClass())}
+              style={revealStyle(600)}
+            >
+              <span className="font-cormorant text-4xl font-light text-shamal-white">
+                <Money data={price} />
               </span>
-            )}
-          </div>
+              {selectedVariant?.compareAtPrice && (
+                <span className="font-cabin text-base text-shamal-white-dim line-through">
+                  <Money data={selectedVariant.compareAtPrice} />
+                </span>
+              )}
+            </div>
+          )}
 
           <div
             className={cn("mt-8 flex flex-col gap-3", revealClass())}
@@ -252,26 +263,26 @@ export default function ShamalProductMain(props: ShamalProductMainProps) {
                 )}
               </>
             ) : isPreOrder ? (
-              <>
-                <AddToCartButton
-                  disabled={!availableForSale}
-                  lines={[
-                    {
-                      merchandiseId: selectedVariant?.id,
-                      quantity,
-                      selectedVariant,
-                    },
-                  ]}
-                  className="!h-auto w-full !justify-center !rounded-none !border-0 !bg-shamal-gold !px-10 !py-4 !text-xs !font-medium !tracking-[0.28em] !text-shamal-black uppercase transition-colors duration-300 hover:!bg-shamal-gold/90 hover:!text-shamal-black"
-                >
-                  {preOrderCtaText}
-                </AddToCartButton>
-                {preOrderNote && (
-                  <p className="text-[11px] text-shamal-white-dim italic">
-                    {preOrderNote}
+              <div className="flex flex-col gap-5">
+                {preOrderShipsText && (
+                  <span className="text-[11px] tracking-[0.32em] text-shamal-gold uppercase">
+                    {preOrderShipsText}
+                  </span>
+                )}
+                {preOrderWaitlistText && (
+                  <p className="max-w-[440px] font-cabin text-sm font-light text-shamal-white-dim leading-relaxed">
+                    {preOrderWaitlistText}
                   </p>
                 )}
-              </>
+                <WaitlistForm
+                  context={product.title}
+                  placeholder={preOrderWaitlistPlaceholder}
+                  buttonText={preOrderWaitlistButton}
+                  successMessage={preOrderWaitlistSuccess}
+                  privacyNote={preOrderWaitlistPrivacy}
+                  className="max-w-[440px]"
+                />
+              </div>
             ) : availableForSale ? (
               <AddToCartButton
                 lines={[
@@ -405,19 +416,45 @@ export const schema = createSchema({
       ],
     },
     {
-      group: "Pre-order",
+      group: "Pre-order (coming soon + waitlist)",
       inputs: [
         {
           type: "text",
-          name: "preOrderCtaText",
-          label: "Button text",
-          defaultValue: "RESERVE YOUR VOYAGE",
+          name: "preOrderShipsText",
+          label: "Ships eyebrow",
+          defaultValue: "Ships end of June",
+        },
+        {
+          type: "textarea",
+          name: "preOrderWaitlistText",
+          label: "Waitlist intro copy",
+          defaultValue:
+            "This voyage is crafted to order. Join the waitlist and you'll be the first to know the moment it's ready to ship.",
         },
         {
           type: "text",
-          name: "preOrderNote",
-          label: "Note below button",
-          defaultValue: "Ships end of June",
+          name: "preOrderWaitlistPlaceholder",
+          label: "Email placeholder",
+          defaultValue: "Your email address",
+        },
+        {
+          type: "text",
+          name: "preOrderWaitlistButton",
+          label: "Button text",
+          defaultValue: "Notify Me",
+        },
+        {
+          type: "text",
+          name: "preOrderWaitlistSuccess",
+          label: "Success message",
+          defaultValue:
+            "You're on the list. We'll let you know the moment this voyage ships.",
+        },
+        {
+          type: "text",
+          name: "preOrderWaitlistPrivacy",
+          label: "Privacy note",
+          defaultValue: "Notification only. No spam.",
         },
       ],
     },
