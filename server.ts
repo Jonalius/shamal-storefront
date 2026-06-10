@@ -2,7 +2,6 @@ import * as remixBuild from "virtual:react-router/server-build"; // Virtual entr
 import { storefrontRedirect } from "@shopify/hydrogen";
 import { createRequestHandler } from "@shopify/hydrogen/oxygen";
 import { createHydrogenRouterContext } from "~/.server/context";
-import { serializeError } from "~/utils/serialize-error";
 
 /**
  * Export a fetch handler in module format.
@@ -39,18 +38,10 @@ export default {
         // whenever the session was pending (logged-in customer, buyer identity,
         // or an access-token refresh), so a freshly-created cart id never
         // reached the browser and the cart appeared to stay empty.
-        try {
-          response.headers.append(
-            "Set-Cookie",
-            await hydrogenContext.session.commit(),
-          );
-        } catch (error) {
-          console.error(
-            "[cart-diag-session] session.commit / Set-Cookie threw",
-            serializeError(error),
-          );
-          throw error;
-        }
+        response.headers.append(
+          "Set-Cookie",
+          await hydrogenContext.session.commit(),
+        );
       }
 
       if (response.status === 404) {
@@ -68,10 +59,7 @@ export default {
 
       return response;
     } catch (error) {
-      console.error(
-        "[cart-diag-session] fetch handler caught",
-        serializeError(error),
-      );
+      console.error(error);
       return new Response("An unexpected error occurred", { status: 500 });
     }
   },
