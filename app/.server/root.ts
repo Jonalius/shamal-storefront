@@ -21,15 +21,16 @@ export async function loadCriticalData({
     getLayoutData(context),
     context.weaverse.loadThemeSettings(),
     // Cart is loaded as critical (awaited) data, NOT deferred. The cart drawer
-    // and trigger badge render from `rootData.cart`, overlaying the in-flight
-    // add submission via useOptimisticCart. If the cart were deferred, a
-    // post-add revalidation would let the add fetcher settle (clearing the
-    // optimistic line) ~seconds before the deferred cart streamed in, so the
-    // line would briefly collapse onto a stale/empty base and vanish — worst on
-    // a first add to an empty cart. Awaiting here means `rootData.cart` is
-    // always the up-to-date cart the moment a (re)validation completes, so the
-    // optimistic line reconciles straight onto a correct base. `.catch` keeps a
-    // cart-fetch failure from 500-ing the whole page.
+    // and trigger badge render from `rootData.cart`, overlaying in-flight cart
+    // mutations via useOptimisticCart. If the cart were deferred, a post-mutation
+    // revalidation would let the fetcher settle (clearing the optimistic overlay)
+    // ~seconds before the deferred cart streamed in, so the UI would briefly
+    // collapse onto a stale/empty base. Awaiting here means `rootData.cart` is
+    // resolved the moment a (re)validation completes. On the live site that
+    // revalidation can still read a stale/empty cart (cookie-timing race);
+    // `useResilientCartBase` covers that by preferring the freshest settled cart
+    // action result until root data catches up. `.catch` keeps a cart-fetch
+    // failure from 500-ing the whole page.
     context.cart.get().catch(() => null),
   ]);
 

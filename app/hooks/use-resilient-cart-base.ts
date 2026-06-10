@@ -2,33 +2,50 @@ import { CartForm } from "@shopify/hydrogen";
 import { useEffect, useState } from "react";
 import { useFetchers } from "react-router";
 
+/** Parse a cart's server `updatedAt` to epoch ms, or null if absent/invalid. */
+function cartUpdatedAtMs(cart: unknown): number | null {
+  const raw = (cart as { updatedAt?: string } | null | undefined)?.updatedAt;
+  if (!raw) {
+    return null;
+  }
+  const ms = Date.parse(raw);
+  return Number.isNaN(ms) ? null : ms;
+}
+
 /**
  * Returns the cart that optimistic UI should treat as its base, hardened
- * against a first-add race seen only on the live (Oxygen) site.
+ * against a cookie-timing race seen only on the live (Oxygen) site that affects
+ * EVERY cart mutation (add / update / remove).
  *
- * On a first add to an empty cart the cart-id cookie is written by the `/cart`
- * action response, but React Router's Single Fetch dispatches the root-loader
- * revalidation as a *separate* request that can fire before the browser has
- * committed that cookie. That revalidation's `cart.get()` then reads no cookie
- * and returns an empty cart, so the instant the add fetcher settles to `idle`
- * (dropping `useOptimisticCart`'s overlay) the freshly-added line collapses
- * onto an empty base and momentarily vanishes — until the next navigation, when
- * the cookie is present and root data catches up. No server-side Set-Cookie fix
- * can close this window: it's the browser dispatching the revalidation before
- * committing the cookie.
+ * The cart-id cookie is written by the `/cart` action response, but React
+ * Router's Single Fetch dispatches the post-mutation root revalidation as a
+ * *separate* request that can fire before the browser commits that cookie (and,
+ * with a pending customer-account session, before the latest cart state is
+ * readable). That revalidation's `cart.get()` then returns a stale or empty
+ * cart, so the instant the fetcher settles to `idle` (dropping
+ * `useOptimisticCart`'s overlay) the UI snaps back to that stale base: a first
+ * add vanishes, a second add isn't shown, a removal reappears — until the next
+ * navigation, when root data catches up. No server-side Set-Cookie fix can close
+ * this window; it's the browser dispatching the revalidation before committing.
  *
- * The fix: remember the cart returned by the most recent settled `/cart` action
- * and, *only when the base cart is empty*, fall back to it. We never prefer the
- * action cart while a cart mutation is in flight, so `useOptimisticCart`'s
- * overlay (which keys off `fetcher.formData`, present through `submitting` and
- * `loading`, cleared at `idle`) is never double-counted on top of an action
- * cart that already includes the pending line. Once root data reflects the cart
- * again (cookie committed on the next navigation), the base is non-empty and the
- * action cart is ignored — the UI reconciles seamlessly.
+ * The fix: remember the cart the most recent settled `/cart` action returned
+ * (the full mutate fragment carries lines + `updatedAt`) and prefer it over the
+ * base **whenever the base hasn't caught up to it** — i.e. the action cart's
+ * `updatedAt` is strictly newer, or there is no base cart at all. `updatedAt` is
+ * the server's monotonic freshness marker, so this works for every mutation
+ * type, including removals (the action cart already omits the removed line, so
+ * it disappears immediately rather than being reasserted). Once root data
+ * reaches the same `updatedAt`, the base is used and there is no lingering
+ * divergence.
  *
- * `useFetchers()` is global, so every consumer of this hook independently
- * observes the same fetchers and computes the same base — no shared store
- * needed.
+ * We never prefer the action cart while a mutation is in flight — there we
+ * return the base and let `useOptimisticCart`'s overlay (which keys off
+ * `fetcher.formData`, present through `submitting`/`loading`, cleared at `idle`)
+ * apply the pending change exactly once, so it is never double-counted on top of
+ * an action cart that already includes it.
+ *
+ * `useFetchers()` is global, so every consumer independently observes the same
+ * fetchers and computes the same base — no shared store needed.
  */
 export function useResilientCartBase<T extends { totalQuantity: number }>(
   baseCart: T | null,
@@ -36,12 +53,11 @@ export function useResilientCartBase<T extends { totalQuantity: number }>(
   const fetchers = useFetchers();
   const [lastActionCart, setLastActionCart] = useState<T | null>(null);
 
-  // A cart mutation is "in flight" while any fetcher carries cart form data.
-  // This matches exactly when useOptimisticCart applies its overlay.
+  // A cart mutation is "in flight" while any fetcher carries cart form data —
+  // this matches exactly when useOptimisticCart applies its overlay. While
+  // in flight (incl. the `loading` phase, where the action result is already
+  // available) capture the freshest action cart by `updatedAt`.
   let pendingMutation = false;
-  // During the `loading` phase the action has already returned its result (the
-  // cart including the new line) while revalidation is still running. Capture
-  // it so it survives the fetcher going `idle` (when it leaves `useFetchers()`).
   let settledActionCart: T | null = null;
   for (const fetcher of fetchers) {
     if (!fetcher.formData) {
@@ -53,28 +69,47 @@ export function useResilientCartBase<T extends { totalQuantity: number }>(
     }
     pendingMutation = true;
     const cart = (fetcher.data as { cart?: T } | undefined)?.cart;
-    if (cart) {
+    if (
+      cart &&
+      (!settledActionCart ||
+        (cartUpdatedAtMs(cart) ?? 0) >=
+          (cartUpdatedAtMs(settledActionCart) ?? 0))
+    ) {
       settledActionCart = cart;
     }
   }
 
+  // Persist the freshest settled action cart so it survives the fetcher dropping
+  // out of useFetchers() at idle. Only ever move forward in `updatedAt`.
   useEffect(() => {
-    if (settledActionCart) {
-      setLastActionCart(settledActionCart);
+    if (!settledActionCart) {
+      return;
     }
+    setLastActionCart((prev) =>
+      !prev ||
+      (cartUpdatedAtMs(settledActionCart) ?? 0) >= (cartUpdatedAtMs(prev) ?? 0)
+        ? settledActionCart
+        : prev,
+    );
   }, [settledActionCart]);
 
-  // While a mutation is pending, let the overlay drive the count off the real
-  // base — never the action cart (that would double-count the in-flight line).
+  // While a mutation is pending, let the overlay drive the UI off the real base
+  // — never the action cart (that would double-count the in-flight change).
   if (pendingMutation) {
     return baseCart;
   }
 
-  // Settled: if the base came back empty (revalidation read no cookie) but a
-  // recent action produced a non-empty cart, render that until root catches up.
-  const baseEmpty = !baseCart || baseCart.totalQuantity === 0;
-  if (baseEmpty && lastActionCart && lastActionCart.totalQuantity > 0) {
-    return lastActionCart;
+  // Settled: prefer the latest action cart whenever root data hasn't caught up
+  // to it (no base, or the action cart's updatedAt is strictly newer).
+  if (lastActionCart) {
+    if (!baseCart) {
+      return lastActionCart;
+    }
+    const actionTs = cartUpdatedAtMs(lastActionCart);
+    const baseTs = cartUpdatedAtMs(baseCart);
+    if (actionTs != null && (baseTs == null || actionTs > baseTs)) {
+      return lastActionCart;
+    }
   }
   return baseCart;
 }
