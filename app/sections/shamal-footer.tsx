@@ -76,7 +76,7 @@ export default function ShamalFooter(props: ShamalFooterProps) {
     { text: exploreLink2Text, url: exploreLink2Url },
     { text: exploreLink3Text, url: exploreLink3Url },
     { text: exploreLink4Text, url: exploreLink4Url },
-  ];
+  ].filter((link) => link.text?.trim() && link.url?.trim());
 
   const policyLinks: LinkPair[] = [
     { text: policy1Text, url: policy1Url },
@@ -255,13 +255,13 @@ export const schema = createSchema({
           type: "text",
           name: "exploreLink1Text",
           label: "Link 1 text",
-          defaultValue: "Our Story",
+          defaultValue: "Home",
         },
         {
           type: "text",
           name: "exploreLink1Url",
           label: "Link 1 url",
-          defaultValue: "#story",
+          defaultValue: "/",
         },
         {
           type: "text",
@@ -290,14 +290,14 @@ export const schema = createSchema({
         {
           type: "text",
           name: "exploreLink4Text",
-          label: "Link 4 text",
-          defaultValue: "Shop All",
+          label: "Link 4 text (unused at launch)",
+          defaultValue: "",
         },
         {
           type: "text",
           name: "exploreLink4Url",
-          label: "Link 4 url",
-          defaultValue: "#shop",
+          label: "Link 4 url (unused at launch)",
+          defaultValue: "",
         },
       ],
     },

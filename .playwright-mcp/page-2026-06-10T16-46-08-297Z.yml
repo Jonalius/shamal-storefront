@@ -1,0 +1,94 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#mainContent"
+  - navigation [ref=e4]:
+    - generic [ref=e5]:
+      - link "Shamal" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Shamal" [ref=e7]
+      - generic [ref=e8]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "Nordic Seasons" [ref=e10] [cursor=pointer]:
+          - /url: /collections/perfumes
+        - link "The Journal" [ref=e11] [cursor=pointer]:
+          - /url: /blogs/journal
+      - button "Open cart" [ref=e12] [cursor=pointer]:
+        - img [ref=e13]
+  - main [ref=e15]:
+    - generic [ref=e17]:
+      - generic [ref=e23]:
+        - generic [ref=e24]: PERFUME
+        - heading "Refill" [level=1] [ref=e25]
+        - paragraph [ref=e26]: Continue the voyage. A refill of any Shamal artefact, designed to refill your existing Shamal bottles. Crafted in our…
+        - generic [ref=e27]:
+          - paragraph [ref=e28]:
+            - emphasis [ref=e29]: Continue the voyage.
+          - paragraph [ref=e30]: A refill of any Shamal artefact, designed to refill your existing Shamal bottles. Crafted in our Helsinki atelier from the same small-batch formulas.
+          - paragraph [ref=e31]: By refilling rather than replacing, you keep your original bottles and reduce packaging waste. A quiet but meaningful part of how we want fragrance to be made.
+          - paragraph [ref=e32]:
+            - strong [ref=e33]: "How it works:"
+            - text: Choose your voyage at checkout (note field below). We see which bottle is yours from the engraving and refill accordingly.
+          - paragraph [ref=e34]: Refill · Ships in minimal recyclable packaging.
+        - generic [ref=e38]: ◆
+        - generic [ref=e42]: €60.00
+        - generic [ref=e43]:
+          - button "REFILL YOUR MOMENT" [disabled] [ref=e45]:
+            - generic [ref=e46]: REFILL YOUR MOMENT
+          - paragraph [ref=e47]: Crafted to order
+        - paragraph [ref=e48]: Free shipping within Finland & EU
+      - generic [ref=e50]:
+        - generic [ref=e51]: THE NOTES
+        - generic [ref=e52]:
+          - heading "What's included" [level=3] [ref=e53]
+          - list [ref=e54]:
+            - listitem [ref=e55]:
+              - generic [ref=e56]: ◆
+              - generic [ref=e57]: Handmade leather case
+            - listitem [ref=e58]:
+              - generic [ref=e59]: ◆
+              - generic [ref=e60]: First Voyage 5ml · Winter Voyage 5ml · Oodi Mökille 5ml
+            - listitem [ref=e61]:
+              - generic [ref=e62]: ◆
+              - generic [ref=e63]: Free shipping within Finland & EU
+        - generic [ref=e67]: ◆
+        - paragraph [ref=e69]: Crafted in Helsinki
+      - generic [ref=e70]:
+        - generic [ref=e73]:
+          - generic [ref=e74]: HANDCRAFTED IN FINLAND
+          - paragraph [ref=e75]: Blended at our Lohja atelier. Ancient oud. Nordic botanicals. Small batch only.
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - img "Shamal" [ref=e80]
+            - paragraph [ref=e81]: Artisan fragrances handcrafted in Helsinki, Finland.
+            - paragraph [ref=e82]: Where Nordic silence meets Eastern mystery.
+          - generic [ref=e83]:
+            - generic [ref=e84]: EXPLORE
+            - list [ref=e85]:
+              - listitem [ref=e86]:
+                - link "Home" [ref=e87] [cursor=pointer]:
+                  - /url: /
+              - listitem [ref=e88]:
+                - link "Nordic Seasons" [ref=e89] [cursor=pointer]:
+                  - /url: /collections/perfumes
+              - listitem [ref=e90]:
+                - link "The Journal" [ref=e91] [cursor=pointer]:
+                  - /url: /blogs/journal
+          - generic [ref=e92]:
+            - generic [ref=e93]: CONTACT
+            - paragraph [ref=e94]: Helsinki, Finland
+            - paragraph [ref=e95]: Lohja Atelier
+            - link "hello@shamal.fi" [ref=e96] [cursor=pointer]:
+              - /url: mailto:hello@shamal.fi
+        - generic [ref=e97]:
+          - paragraph [ref=e98]: © 2026 Shamal. All rights reserved.
+          - list [ref=e99]:
+            - listitem [ref=e100]:
+              - link "Privacy" [ref=e101] [cursor=pointer]:
+                - /url: /policies/privacy-policy
+            - listitem [ref=e102]:
+              - link "Terms" [ref=e103] [cursor=pointer]:
+                - /url: /policies/terms-of-service
+            - listitem [ref=e104]:
+              - link "Shipping" [ref=e105] [cursor=pointer]:
+                - /url: /policies/shipping-policy

@@ -3,16 +3,14 @@ import { Link } from "react-router";
 import { ShamalCartTrigger } from "~/components/shamal-cart-trigger";
 import { cn } from "~/utils/cn";
 
-// Homepage-absolute hrefs so the links work from collection/product pages too:
-// on the homepage they resolve to same-document fragment scrolls; elsewhere
-// they navigate home and scroll to the section. "Nordic Seasons" and
-// "The Journal" point at real routes (the old "/#voyages" / "/#journal"
-// homepage anchors were removed in the rebrand).
+// Soft-launch nav: Home + the two real routes. "Our Story" (homepage anchor)
+// and "Shop" (hidden during soft launch) were removed. "Home" navigates to "/"
+// alongside the logo, which is also a home link. "Nordic Seasons" and
+// "The Journal" point at real routes.
 const NAV_LINKS = [
-  { label: "Our Story", href: "/#story" },
+  { label: "Home", href: "/" },
   { label: "Nordic Seasons", href: "/collections/perfumes" },
   { label: "The Journal", href: "/blogs/journal" },
-  { label: "Shop", href: "/#shop" },
 ] as const;
 
 /**
