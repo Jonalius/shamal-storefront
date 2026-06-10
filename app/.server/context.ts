@@ -6,7 +6,7 @@ import {
   type Session,
   type SessionStorage,
 } from "react-router";
-import { CART_QUERY_FRAGMENT } from "~/graphql/fragments";
+import { CART_MUTATE_FRAGMENT, CART_QUERY_FRAGMENT } from "~/graphql/fragments";
 import type { I18nLocale } from "~/types/others";
 import { COUNTRIES } from "~/utils/const";
 import { components } from "~/weaverse/components";
@@ -45,7 +45,16 @@ export async function createHydrogenRouterContext(
       waitUntil,
       session,
       i18n: getLocaleFromRequest(request),
-      cart: { queryFragment: CART_QUERY_FRAGMENT },
+      cart: {
+        queryFragment: CART_QUERY_FRAGMENT,
+        // Cart mutations (addLines, updateLines, …) otherwise return Hydrogen's
+        // minimal default cart (id, totalQuantity, checkoutUrl) with no lines.
+        // Use the full fragment so the cart action response carries lines too —
+        // required for the first-add resilience fallback (see useResilientCartBase)
+        // to render the added line when the post-add revalidation reads no cart
+        // cookie.
+        mutateFragment: CART_MUTATE_FRAGMENT,
+      },
     },
     additionalContext,
   );

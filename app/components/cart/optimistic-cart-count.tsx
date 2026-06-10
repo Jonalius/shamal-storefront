@@ -1,4 +1,5 @@
 import { type CartReturn, useOptimisticCart } from "@shopify/hydrogen";
+import { useResilientCartBase } from "~/hooks/use-resilient-cart-base";
 
 /**
  * Computes the optimistic total quantity from a resolved cart and hands it to a
@@ -7,6 +8,9 @@ import { type CartReturn, useOptimisticCart } from "@shopify/hydrogen";
  * submissions immediately. In particular the first add to a previously-empty
  * cart shows 1 right away instead of briefly showing 0 until the server
  * round-trip lands. Pass the resolved `rootData.cart` (critical data).
+ *
+ * `useResilientCartBase` keeps the count correct after a first add even when the
+ * post-add revalidation reads no cart cookie (see that hook for the full race).
  */
 export function OptimisticCartCount({
   cart,
@@ -15,6 +19,7 @@ export function OptimisticCartCount({
   cart: CartReturn | null;
   children: (count: number) => React.ReactNode;
 }) {
-  const optimisticCart = useOptimisticCart<CartReturn>(cart);
+  const base = useResilientCartBase<CartReturn>(cart);
+  const optimisticCart = useOptimisticCart<CartReturn>(base);
   return <>{children(optimisticCart?.totalQuantity ?? 0)}</>;
 }

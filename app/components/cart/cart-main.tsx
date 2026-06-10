@@ -5,6 +5,7 @@ import { Link as RouterLink } from "react-router";
 import useScroll from "react-use/esm/useScroll";
 import type { CartApiQueryFragment } from "storefront-api.generated";
 import { ScrollArea } from "~/components/scroll-area";
+import { useResilientCartBase } from "~/hooks/use-resilient-cart-base";
 import type { CartLayoutType } from "~/types/others";
 import { CartLineItem } from "./cart-line-item";
 import { CartSummary } from "./cart-summary";
@@ -79,7 +80,8 @@ export function CartMain({
 }) {
   const scrollRef = useRef(null);
   const { y } = useScroll(scrollRef);
-  const cart = useOptimisticCart<CartApiQueryFragment>(originalCart);
+  const base = useResilientCartBase<CartApiQueryFragment>(originalCart);
+  const cart = useOptimisticCart<CartApiQueryFragment>(base);
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const cartHasItems = Boolean(cart) && cart.totalQuantity > 0;
 
