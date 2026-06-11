@@ -127,7 +127,12 @@ export default function ShamalRefill(props: ShamalRefillProps) {
           style={{ backgroundImage: `url(${backgroundUrl})` }}
         />
       )}
-      <div aria-hidden="true" className="absolute inset-0 bg-shamal-black/85" />
+      {/* Seam fades: black at both edges so the section dissolves out of Discovery
+          above and into the Waitlist below; the photo stays a quiet texture between. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--color-shamal-black)_0%,color-mix(in_srgb,var(--color-shamal-black)_82%,transparent)_16%,color-mix(in_srgb,var(--color-shamal-black)_82%,transparent)_84%,var(--color-shamal-black)_100%)]"
+      />
       <div className="relative z-10 mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-16 px-6 md:grid-cols-2 md:gap-20 md:px-10">
         {/* Content first on desktop (image to the right) to alternate against Discovery. */}
         <div ref={contentRef} className="flex flex-col md:order-1">

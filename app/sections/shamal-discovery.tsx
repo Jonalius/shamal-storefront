@@ -86,7 +86,7 @@ export default function ShamalDiscovery(props: ShamalDiscoveryProps) {
       ref={ref}
       {...rest}
       id="discovery"
-      className="relative w-full overflow-hidden bg-shamal-surface py-32 text-shamal-white md:py-40"
+      className="relative w-full overflow-hidden bg-shamal-black py-32 text-shamal-white md:py-40"
     >
       {backgroundUrl && (
         <div
@@ -95,9 +95,12 @@ export default function ShamalDiscovery(props: ShamalDiscoveryProps) {
           style={{ backgroundImage: `url(${backgroundUrl})` }}
         />
       )}
+      {/* Top-to-bottom blend: opaque at the top edge to dissolve out of the hero
+          above, easing to a gentle ~30% dim so the forest reads through, then
+          back to black at the foot to bleed into the Refill section below. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-shamal-surface/85"
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--color-shamal-black)_0%,color-mix(in_srgb,var(--color-shamal-black)_30%,transparent)_18%,color-mix(in_srgb,var(--color-shamal-black)_30%,transparent)_78%,var(--color-shamal-black)_100%)]"
       />
       <div className="relative z-10 mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-16 px-6 md:grid-cols-2 md:gap-20 md:px-10">
         <div className="flex flex-col items-center">
@@ -119,7 +122,14 @@ export default function ShamalDiscovery(props: ShamalDiscoveryProps) {
           </p>
         </div>
 
-        <div ref={contentRef} className="flex flex-col">
+        <div ref={contentRef} className="relative flex flex-col">
+          {/* Soft localized scrim behind the copy only — lifts contrast over the
+              now-visible forest without dimming the whole image. Sits inside the
+              z-10 grid, so it paints above the photo overlay and behind the text. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-x-8 -inset-y-10 -z-10 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--color-shamal-black)_55%,transparent)_0%,transparent_72%)]"
+          />
           <span
             className={cn(
               "text-[11px] tracking-[0.4em] text-shamal-gold uppercase",
