@@ -41,7 +41,7 @@ export function ShamalNav() {
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-10">
         <Link to="/">
-          <img src="/shamal-logo.png" alt="Shamal" className="h-7 w-auto" />
+          <img src="/shamal-nav-logo.png" alt="Shamal" className="h-7 w-auto" />
         </Link>
         <div className="hidden items-center gap-10 md:flex">
           {NAV_LINKS.map((link) => (
